@@ -242,7 +242,26 @@ fetch('http://localhost:3000/upload-invoice', {
 .catch(error => {
     console.error('Error:', error);
 });
+//
+const uploadToGitHub = async (filePath) => {
+    const token = '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';
+    const repo = 'mr-aiza/test224';
+    const fileContent = fs.readFileSync(filePath, { encoding: 'base64' });
 
+    const response = await axios.put(`https://api.github.com/repos/${repo}/contents/invoices/${path.basename(filePath)}`, {
+        message: 'Add invoice',
+        content: fileContent,
+        branch: 'main' // یا نام برنچ مورد نظر
+    }, {
+        headers: {
+            Authorization: `token ${token}`
+        }
+    });
+
+    return response.data;
+};
+
+//
         // تابع تولید کد کپچا
         function generateCaptcha(length = 6) {
             const characters = '!@#$%&*ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
