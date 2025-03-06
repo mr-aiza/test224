@@ -231,40 +231,43 @@ const blob = new Blob([invoiceContent], { type: 'text/plain' });
 const formData = new FormData();
 formData.append('invoice', new File([blob], `فاکتور_${fullName}_${trackingCode}.txt`));
 
-fetch('http://localhost:3000/upload-invoice', {
-    method: 'POST',
-    body: formData
-})
-.then(response => response.text())
-.then(data => {
-    alert(data);
-})
-.catch(error => {
-    console.error('Error:', error);
-});
-//
-const uploadToGitHub = async (filePath) => {
-    const token = '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';
+// آپلود به گیت‌هاب
+const uploadToGitHub = async (fileName, fileContent) => {
+    const token = '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'; // توکن خود را اینجا قرار دهید
     const repo = 'mr-aiza/test224';
-    const fileContent = fs.readFileSync(filePath, { encoding: 'base64' });
-
-    const response = await axios.put(`https://api.github.com/repos/${repo}/contents/invoices/${path.basename(filePath)}`, {
-        message: 'Add invoice',
-        content: fileContent,
-        branch: 'main' // یا نام برنچ مورد نظر
-    }, {
+    
+    const response = await fetch(`https://api.github.com/repos/${repo}/contents/invoices/${fileName}`, {
+        method: 'PUT',
         headers: {
-            Authorization: `token ${token}`
-        }
+            'Authorization': `token ${token}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            message: 'Add invoice',
+            content: btoa(fileContent), // محتوای فایل را به base64 تبدیل کنید
+            branch: 'main' // یا نام برنچ مورد نظر
+        })
     });
 
-    return response.data;
+    if (!response.ok) {
+        throw new Error('Error uploading to GitHub: ' + response.statusText);
+    }
+
+    return await response.json();
 };
 
-//
+// فراخوانی تابع آپلود
+uploadToGitHub(`فاکتور_${fullName}_${trackingCode}.txt`, invoiceContent)
+    .then(data => {
+        console.log('File uploaded successfully:', data);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+
         // تابع تولید کد کپچا
         function generateCaptcha(length = 6) {
-            const characters = '!@#$%&*ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
             let captcha = '';
             for (let i = 0; i < length; i++) {
                 captcha += characters.charAt(Math.floor(Math.random() * characters.length));
