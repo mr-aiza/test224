@@ -44,39 +44,61 @@
             font-family: 'Vazir', sans-serif;
             background-color: #f4f4f4;
             padding: 20px;
+            display: flex;
+            justify-content: center;
         }
         .container {
             background: white;
-            width: 80%;
-            margin: auto;
+            width: 90%;
+            max-width: 800px;
             padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+            text-align: right;
         }
         h2 {
             color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
         }
         input, select, textarea {
             margin: 10px 0;
-            padding: 8px;
+            padding: 12px;
             width: 100%;
-            border-radius: 5px;
+            border-radius: 8px;
             border: 1px solid #ddd;
+            font-size: 16px;
+        }
+        .dropzone {
+            border: 2px dashed #ddd;
+            padding: 20px;
+            margin-bottom: 20px;
         }
         .btn-submit {
             padding: 10px 20px;
             background: #28a745;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
+            font-size: 18px;
+            width: 100%;
         }
         .btn-submit:hover {
             background: #218838;
         }
-        .dropzone {
-            border: 2px dashed #ddd;
-            padding: 20px;
+        .btn-secondary {
+            padding: 10px 20px;
+            background: #17a2b8;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .btn-secondary:hover {
+            background: #138496;
         }
     </style>
 </head>
@@ -169,89 +191,4 @@
             // افزونه Dropzone برای آپلود فایل‌ها
             Dropzone.autoDiscover = false;
             var myDropzone = new Dropzone("#myDropzone", {
-                url: "/upload", // آدرس سرور برای آپلود فایل
-                maxFiles: 5,
-                acceptedFiles: "image/*",
-                dictDefaultMessage: "فایل‌ها را بکشید و اینجا رها کنید یا برای انتخاب فایل‌ها کلیک کنید"
-            });
-
-            // افزونه Flatpickr برای انتخاب زمان
-            flatpickr("#eventTime", {
-                enableTime: true,
-                noCalendar: true,
-                dateFormat: "H:i",
-            });
-
-            // اعتبارسنجی فرم
-            $('#reservationForm').validate({
-                rules: {
-                    firstName: "required",
-                    lastName: "required",
-                    eventDate: "required",
-                    guestCount: {
-                        required: true,
-                        min: 1
-                    },
-                    venue: "required"
-                },
-                messages: {
-                    firstName: "لطفاً نام خود را وارد کنید",
-                    lastName: "لطفاً نام خانوادگی خود را وارد کنید",
-                    eventDate: "لطفاً تاریخ مراسم را وارد کنید",
-                    guestCount: {
-                        required: "تعداد مهمان‌ها را وارد کنید",
-                        min: "تعداد مهمان‌ها باید حداقل 1 باشد"
-                    },
-                    venue: "لطفاً محل برگزاری را وارد کنید"
-                },
-                submitHandler: function(form) {
-                    saveData(); // ارسال داده‌ها پس از اعتبارسنجی
-                }
-            });
-        });
-
-        function saveData() {
-            const invoiceData = {
-                firstName: document.getElementById('firstName').value,
-                lastName: document.getElementById('lastName').value,
-                eventDate: document.getElementById('eventDate').value,
-                eventTime: document.getElementById('eventTime').value,
-                eventType: document.getElementById('eventType').value,
-                guestCount: document.getElementById('guestCount').value,
-                venue: document.getElementById('venue').value,
-                juice: document.getElementById('juice').value,
-                fingerFood: document.getElementById('fingerFood').value,
-                dinner: document.getElementById('dinner').value,
-                flowerArrangement: document.getElementById('flowerArrangement').value,
-                services: [],
-                files: [] // لیست فایل‌های آپلود شده
-            };
-
-            // اضافه کردن خدمات اضافی
-            $('input[name="services"]:checked').each(function() {
-                invoiceData.services.push($(this).val());
-            });
-
-            // ذخیره داده‌ها در localStorage
-            for (const key in invoiceData) {
-                localStorage.setItem(key, JSON.stringify(invoiceData[key]));
-            }
-
-            // تولید کد پیگیری منحصر به فرد
-            const trackingCode = 'RS' + Math.floor(Math.random() * 1000000);
-            localStorage.setItem('trackingCode', trackingCode);
-
-            // نمایش پیام تایید
-            Swal.fire({
-                title: 'مراسم با موفقیت رزرو شد!',
-                text: 'کد پیگیری شما: ' + trackingCode,
-                icon: 'success',
-                confirmButtonText: 'باشه'
-            });
-
-            // انتقال به صفحه فاکتور
-            window.location.href = 'home.html';
-        }
-    </script>
-</body>
-</html>
+                url
