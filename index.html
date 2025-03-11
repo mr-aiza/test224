@@ -11,47 +11,45 @@
     <style>
         body {
             font-family: 'Vazir', sans-serif;
-            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            background-color: #f4f4f4;
             text-align: center;
-            margin: 0;
             padding: 20px;
         }
         .container {
             background: white;
-            padding: 30px;
             width: 60%;
             margin: auto;
-            border-radius: 15px;
+            padding: 30px;
+            border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
         h2 {
             color: #333;
         }
-        input, button, select {
-            width: 80%;
-            padding: 10px;
+        input, select {
             margin: 10px 0;
+            padding: 8px;
+            width: 80%;
             border-radius: 5px;
             border: 1px solid #ddd;
         }
         button {
-            background: #ff7e5f;
+            padding: 10px 20px;
+            background: #28a745;
             color: white;
-            font-size: 16px;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
-            transition: background 0.3s;
         }
         button:hover {
-            background: #e06b50;
+            background: #218838;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h2>فرم رزرو مراسم</h2>
-
-        <!-- تغییر به فرم معمولی -->
-        <form action="home.html" method="POST">
+        <form id="reservationForm">
             <label>نام:</label>
             <input type="text" id="firstName" name="firstName" required><br>
 
@@ -102,8 +100,43 @@
                 <option value="گل آرایی - ویژه">گل آرایی - ویژه</option>
             </select><br>
 
-            <button type="submit">رزرو مراسم</button>
+            <button type="button" onclick="saveData()">رزرو مراسم</button>
         </form>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            // Initialize Persian Date Picker
+            $('#eventDate').persianDatepicker({
+                format: 'YYYY/MM/DD',
+                autoClose: true,
+                observer: true,
+                altField: '#eventDate'
+            });
+        });
+
+        function saveData() {
+            const invoiceData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                eventDate: document.getElementById('eventDate').value,
+                eventType: document.getElementById('eventType').value,
+                guestCount: document.getElementById('guestCount').value,
+                venue: document.getElementById('venue').value,
+                juice: document.getElementById('juice').value,
+                fingerFood: document.getElementById('fingerFood').value,
+                dinner: document.getElementById('dinner').value,
+                flowerArrangement: document.getElementById('flowerArrangement').value
+            };
+
+            // ذخیره داده‌ها در localStorage
+            for (const key in invoiceData) {
+                localStorage.setItem(key, invoiceData[key]);
+            }
+
+            // انتقال به صفحه home.html
+            window.location.href = 'home.html';
+        }
+    </script>
 </body>
 </html>
