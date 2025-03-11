@@ -77,7 +77,8 @@
 <body>
     <div class="invoice">
         <h2>فاکتور رزرو مراسم</h2>
-        <p><strong>فاکتور شماره:</strong> <span id="invoiceNumber"></span></p>
+        <p><strong>نام:</strong> <span id="firstName"></span></p>
+        <p><strong>نام خانوادگی:</strong> <span id="lastName"></span></p>
         <p><strong>تاریخ:</strong> <span id="eventDate"></span></p>
         <p><strong>نوع مراسم:</strong> <span id="eventType"></span></p>
         <p><strong>محل برگزاری:</strong> <span id="venue"></span></p>
@@ -110,7 +111,8 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            document.getElementById('invoiceNumber').innerText = Math.floor(100000 + Math.random() * 900000); // تولید شماره فاکتور تصادفی
+            document.getElementById('firstName').innerText = localStorage.getItem('firstName');
+            document.getElementById('lastName').innerText = localStorage.getItem('lastName');
             document.getElementById('eventDate').innerText = localStorage.getItem('eventDate');
             document.getElementById('eventType').innerText = localStorage.getItem('eventType');
             document.getElementById('venue').innerText = localStorage.getItem('venue');
