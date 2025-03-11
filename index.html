@@ -4,15 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>رزرو مراسم</title>
+
+    <!-- لینک‌های افزونه‌ها -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/persian-date@latest/dist/persian-date.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/persian-datepicker@latest/dist/js/persian-datepicker.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/persian-datepicker@latest/dist/css/persian-datepicker.min.css">
+
+    <!-- افزونه Select2 برای بهبود انتخاب‌ها -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
+    <!-- افزونه jQuery Validation برای اعتبارسنجی -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+
+    <!-- افزونه Toastr برای پیام‌های تایید و خطا -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <!-- لینک‌های استایل‌های Bootstrap برای طراحی زیبا -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- فونت فارسی -->
     <link href="https://fonts.googleapis.com/css2?family=Vazir&display=swap" rel="stylesheet">
+
     <style>
         body {
             font-family: 'Vazir', sans-serif;
             background-color: #f4f4f4;
-            text-align: center;
             padding: 20px;
         }
         .container {
@@ -33,7 +52,7 @@
             border-radius: 5px;
             border: 1px solid #ddd;
         }
-        button {
+        .btn-submit {
             padding: 10px 20px;
             background: #28a745;
             color: white;
@@ -41,7 +60,7 @@
             border-radius: 5px;
             cursor: pointer;
         }
-        button:hover {
+        .btn-submit:hover {
             background: #218838;
         }
     </style>
@@ -100,18 +119,50 @@
                 <option value="گل آرایی - ویژه">گل آرایی - ویژه</option>
             </select><br>
 
-            <button type="button" onclick="saveData()">رزرو مراسم</button>
+            <button type="button" class="btn-submit" onclick="saveData()">رزرو مراسم</button>
         </form>
     </div>
 
     <script>
         $(document).ready(function() {
-            // Initialize Persian Date Picker
+            // Persian Date Picker
             $('#eventDate').persianDatepicker({
                 format: 'YYYY/MM/DD',
                 autoClose: true,
                 observer: true,
                 altField: '#eventDate'
+            });
+
+            // افزونه Select2 برای انتخاب‌های زیبا
+            $('#eventType, #juice, #fingerFood, #dinner, #flowerArrangement').select2({
+                dir: 'rtl'
+            });
+
+            // اعتبارسنجی فرم با jQuery Validation
+            $('#reservationForm').validate({
+                rules: {
+                    firstName: "required",
+                    lastName: "required",
+                    eventDate: "required",
+                    guestCount: {
+                        required: true,
+                        min: 1
+                    },
+                    venue: "required"
+                },
+                messages: {
+                    firstName: "لطفاً نام خود را وارد کنید",
+                    lastName: "لطفاً نام خانوادگی خود را وارد کنید",
+                    eventDate: "لطفاً تاریخ مراسم را وارد کنید",
+                    guestCount: {
+                        required: "تعداد مهمان‌ها را وارد کنید",
+                        min: "تعداد مهمان‌ها باید حداقل 1 باشد"
+                    },
+                    venue: "لطفاً محل برگزاری را وارد کنید"
+                },
+                submitHandler: function(form) {
+                    saveData(); // ارسال داده‌ها پس از اعتبارسنجی
+                }
             });
         });
 
@@ -134,7 +185,14 @@
                 localStorage.setItem(key, invoiceData[key]);
             }
 
-            // انتقال به صفحه home.html
+            // تولید کد پیگیری منحصر به فرد
+            const trackingCode = 'RS' + Math.floor(Math.random() * 1000000);
+            localStorage.setItem('trackingCode', trackingCode);
+
+            // نمایش پیام تایید با استفاده از Toastr
+            toastr.success('مراسم با موفقیت رزرو شد! کد پیگیری شما: ' + trackingCode, 'تایید');
+
+            // انتقال به صفحه فاکتور
             window.location.href = 'home.html';
         }
     </script>
