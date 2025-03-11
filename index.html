@@ -10,30 +10,38 @@
     <style>
         body {
             font-family: Tahoma, sans-serif;
-            background-color: #f4f4f4;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
             text-align: center;
+            margin: 0;
+            padding: 20px;
         }
         .container {
             background: white;
-            padding: 20px;
-            width: 50%;
+            padding: 30px;
+            width: 60%;
             margin: auto;
-            border-radius: 10px;
-            box-shadow: 0 0 10px gray;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        h2 {
+            color: #333;
+        }
+        input, button, select {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
         }
         button {
-            background: green;
+            background: #ff7e5f;
             color: white;
-            padding: 10px;
-            border: none;
+            font-size: 16px;
             cursor: pointer;
+            transition: background 0.3s;
         }
-        #captchaBox {
-            display: inline-block;
-            background: lightgray;
-            padding: 5px;
-            font-weight: bold;
-            letter-spacing: 2px;
+        button:hover {
+            background: #e06b50;
         }
     </style>
 </head>
@@ -42,44 +50,45 @@
         <h2>فرم رزرو مراسم</h2>
         <label>نام و نام خانوادگی:</label>
         <input type="text" id="fullName" required><br>
+        
         <label>شماره تماس:</label>
         <input type="text" id="phone" required><br>
+
         <label>تاریخ مراسم:</label>
         <input type="text" id="eventDate" class="datepicker" required><br>
-        <label>کد کپچا:</label>
-        <span id="captchaBox"></span>
-        <button type="button" onclick="refreshCaptcha()">تغییر کپچا</button>
-        <input type="text" id="captchaInput" required><br>
+
+        <label>نوع مراسم:</label>
+        <select id="eventType">
+            <option value="عروسی">عروسی</option>
+            <option value="عقد">عقد</option>
+            <option value="تولد">تولد</option>
+            <option value="مهمانی">مهمانی</option>
+        </select><br>
+
         <button onclick="saveData()">رزرو مراسم</button>
     </div>
+
     <script>
         function saveData() {
             const fullName = document.getElementById('fullName').value;
             const phone = document.getElementById('phone').value;
             const eventDate = document.getElementById('eventDate').value;
-            const captchaInput = document.getElementById('captchaInput').value;
-            
-            if (captchaInput !== localStorage.getItem('captcha')) {
-                alert("کد کپچا نادرست است");
+            const eventType = document.getElementById('eventType').value;
+
+            if (!fullName || !phone || !eventDate) {
+                alert("لطفاً تمام فیلدها را پر کنید.");
                 return;
             }
+
             localStorage.setItem('fullName', fullName);
             localStorage.setItem('phone', phone);
             localStorage.setItem('eventDate', eventDate);
+            localStorage.setItem('eventType', eventType);
+
             window.location.href = 'home.html';
         }
-        function refreshCaptcha() {
-            const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            let captcha = '';
-            for (let i = 0; i < 6; i++) {
-                captcha += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            document.getElementById('captchaBox').innerText = captcha;
-            localStorage.setItem('captcha', captcha);
-            setTimeout(refreshCaptcha, 30000);
-        }
+
         document.addEventListener("DOMContentLoaded", function() {
-            refreshCaptcha();
             new persianDate().toLocale('fa').format();
             $(".datepicker").persianDatepicker();
         });
