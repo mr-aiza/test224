@@ -22,6 +22,17 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
+    <!-- افزونه Flatpickr برای تاریخ و زمان -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+    <!-- افزونه Dropzone برای آپلود فایل‌ها -->
+    <link href="https://unpkg.com/dropzone/dist/dropzone.css" rel="stylesheet">
+    <script src="https://unpkg.com/dropzone/dist/dropzone.js"></script>
+
+    <!-- افزونه SweetAlert2 برای نمایش پیام‌های زیبا -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!-- لینک‌های استایل‌های Bootstrap برای طراحی زیبا -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
@@ -36,7 +47,7 @@
         }
         .container {
             background: white;
-            width: 60%;
+            width: 80%;
             margin: auto;
             padding: 30px;
             border-radius: 10px;
@@ -45,10 +56,10 @@
         h2 {
             color: #333;
         }
-        input, select {
+        input, select, textarea {
             margin: 10px 0;
             padding: 8px;
-            width: 80%;
+            width: 100%;
             border-radius: 5px;
             border: 1px solid #ddd;
         }
@@ -62,6 +73,10 @@
         }
         .btn-submit:hover {
             background: #218838;
+        }
+        .dropzone {
+            border: 2px dashed #ddd;
+            padding: 20px;
         }
     </style>
 </head>
@@ -77,6 +92,9 @@
 
             <label>تاریخ مراسم:</label>
             <input type="text" id="eventDate" name="eventDate" class="datepicker" required><br>
+
+            <label>زمان مراسم:</label>
+            <input type="text" id="eventTime" name="eventTime" class="timepicker" required><br>
 
             <label>نوع مراسم:</label>
             <select id="eventType" name="eventType">
@@ -119,6 +137,16 @@
                 <option value="گل آرایی - ویژه">گل آرایی - ویژه</option>
             </select><br>
 
+            <label>خدمات اضافی:</label>
+            <div>
+                <input type="checkbox" id="photography" name="services" value="عکاسی"> عکاسی<br>
+                <input type="checkbox" id="video" name="services" value="فیلم‌برداری"> فیلم‌برداری<br>
+                <input type="checkbox" id="music" name="services" value="موزیک"> موزیک<br>
+            </div><br>
+
+            <label>آپلود تصاویر:</label>
+            <div class="dropzone" id="myDropzone"></div><br>
+
             <button type="button" class="btn-submit" onclick="saveData()">رزرو مراسم</button>
         </form>
     </div>
@@ -138,7 +166,23 @@
                 dir: 'rtl'
             });
 
-            // اعتبارسنجی فرم با jQuery Validation
+            // افزونه Dropzone برای آپلود فایل‌ها
+            Dropzone.autoDiscover = false;
+            var myDropzone = new Dropzone("#myDropzone", {
+                url: "/upload", // آدرس سرور برای آپلود فایل
+                maxFiles: 5,
+                acceptedFiles: "image/*",
+                dictDefaultMessage: "فایل‌ها را بکشید و اینجا رها کنید یا برای انتخاب فایل‌ها کلیک کنید"
+            });
+
+            // افزونه Flatpickr برای انتخاب زمان
+            flatpickr("#eventTime", {
+                enableTime: true,
+                noCalendar: true,
+                dateFormat: "H:i",
+            });
+
+            // اعتبارسنجی فرم
             $('#reservationForm').validate({
                 rules: {
                     firstName: "required",
@@ -171,26 +215,39 @@
                 firstName: document.getElementById('firstName').value,
                 lastName: document.getElementById('lastName').value,
                 eventDate: document.getElementById('eventDate').value,
+                eventTime: document.getElementById('eventTime').value,
                 eventType: document.getElementById('eventType').value,
                 guestCount: document.getElementById('guestCount').value,
                 venue: document.getElementById('venue').value,
                 juice: document.getElementById('juice').value,
                 fingerFood: document.getElementById('fingerFood').value,
                 dinner: document.getElementById('dinner').value,
-                flowerArrangement: document.getElementById('flowerArrangement').value
+                flowerArrangement: document.getElementById('flowerArrangement').value,
+                services: [],
+                files: [] // لیست فایل‌های آپلود شده
             };
+
+            // اضافه کردن خدمات اضافی
+            $('input[name="services"]:checked').each(function() {
+                invoiceData.services.push($(this).val());
+            });
 
             // ذخیره داده‌ها در localStorage
             for (const key in invoiceData) {
-                localStorage.setItem(key, invoiceData[key]);
+                localStorage.setItem(key, JSON.stringify(invoiceData[key]));
             }
 
             // تولید کد پیگیری منحصر به فرد
             const trackingCode = 'RS' + Math.floor(Math.random() * 1000000);
             localStorage.setItem('trackingCode', trackingCode);
 
-            // نمایش پیام تایید با استفاده از Toastr
-            toastr.success('مراسم با موفقیت رزرو شد! کد پیگیری شما: ' + trackingCode, 'تایید');
+            // نمایش پیام تایید
+            Swal.fire({
+                title: 'مراسم با موفقیت رزرو شد!',
+                text: 'کد پیگیری شما: ' + trackingCode,
+                icon: 'success',
+                confirmButtonText: 'باشه'
+            });
 
             // انتقال به صفحه فاکتور
             window.location.href = 'home.html';
