@@ -96,25 +96,41 @@
         <button onclick="saveData()">رزرو مراسم</button>
     </div>
 
-    <script>
-        function saveData() {
-    localStorage.setItem('eventDate', document.getElementById('eventDate').value);
-    localStorage.setItem('eventType', document.getElementById('eventType').value);
-    localStorage.setItem('guestCount', document.getElementById('guestCount').value);
-    localStorage.setItem('venue', document.getElementById('venue').value);
-    localStorage.setItem('juice', document.getElementById('juice').value);
-    localStorage.setItem('fingerFood', document.getElementById('fingerFood').value);
-    localStorage.setItem('dinner', document.getElementById('dinner').value);
-    localStorage.setItem('flowerArrangement', document.getElementById('flowerArrangement').value);
+   function saveData() {
+    const invoiceData = {
+        eventDate: document.getElementById('eventDate').value,
+        eventType: document.getElementById('eventType').value,
+        guestCount: document.getElementById('guestCount').value,
+        venue: document.getElementById('venue').value,
+        juice: document.getElementById('juice').value,
+        fingerFood: document.getElementById('fingerFood').value,
+        dinner: document.getElementById('dinner').value,
+        flowerArrangement: document.getElementById('flowerArrangement').value
+    };
 
-    window.location.href = 'فاکتور/home.html';  // تغییر مسیر به فاکتور
+    const invoiceContent = `
+        <html lang="fa">
+        <head><meta charset="UTF-8"><title>فاکتور رزرو</title></head>
+        <body>
+            <h2>فاکتور رزرو مراسم</h2>
+            <p>تاریخ مراسم: ${invoiceData.eventDate}</p>
+            <p>نوع مراسم: ${invoiceData.eventType}</p>
+            <p>محل برگزاری: ${invoiceData.venue}</p>
+            <p>تعداد مهمان‌ها: ${invoiceData.guestCount}</p>
+            <p>آب میوه: ${invoiceData.juice}</p>
+            <p>فینگر فود: ${invoiceData.fingerFood}</p>
+            <p>شام: ${invoiceData.dinner}</p>
+            <p>گل‌آرایی: ${invoiceData.flowerArrangement}</p>
+        </body></html>`;
+
+    const blob = new Blob([invoiceContent], { type: "text/html" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "فاکتور.html";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
 }
 
-        }
-
-        document.addEventListener("DOMContentLoaded", function() {
-            $(".datepicker").persianDatepicker();
-        });
-    </script>
 </body>
 </html>
