@@ -93,44 +93,40 @@
             <option value="گل آرایی - ویژه">گل آرایی - ویژه</option>
         </select><br>
 
-        <button onclick="saveData()">رزرو مراسم</button>
+        <button onclick="saveData(event)">رزرو مراسم</button>
     </div>
 
-   function saveData() {
-    const invoiceData = {
-        eventDate: document.getElementById('eventDate').value,
-        eventType: document.getElementById('eventType').value,
-        guestCount: document.getElementById('guestCount').value,
-        venue: document.getElementById('venue').value,
-        juice: document.getElementById('juice').value,
-        fingerFood: document.getElementById('fingerFood').value,
-        dinner: document.getElementById('dinner').value,
-        flowerArrangement: document.getElementById('flowerArrangement').value
-    };
+    <script>
+        function saveData(event) {
+            event.preventDefault(); // جلوگیری از ارسال فرم به صورت پیش‌فرض
 
-    const invoiceContent = `
-        <html lang="fa">
-        <head><meta charset="UTF-8"><title>فاکتور رزرو</title></head>
-        <body>
-            <h2>فاکتور رزرو مراسم</h2>
-            <p>تاریخ مراسم: ${invoiceData.eventDate}</p>
-            <p>نوع مراسم: ${invoiceData.eventType}</p>
-            <p>محل برگزاری: ${invoiceData.venue}</p>
-            <p>تعداد مهمان‌ها: ${invoiceData.guestCount}</p>
-            <p>آب میوه: ${invoiceData.juice}</p>
-            <p>فینگر فود: ${invoiceData.fingerFood}</p>
-            <p>شام: ${invoiceData.dinner}</p>
-            <p>گل‌آرایی: ${invoiceData.flowerArrangement}</p>
-        </body></html>`;
+            const invoiceData = {
+                eventDate: document.getElementById('eventDate').value,
+                eventType: document.getElementById('eventType').value,
+                guestCount: document.getElementById('guestCount').value,
+                venue: document.getElementById('venue').value,
+                juice: document.getElementById('juice').value,
+                fingerFood: document.getElementById('fingerFood').value,
+                dinner: document.getElementById('dinner').value,
+                flowerArrangement: document.getElementById('flowerArrangement').value
+            };
 
-    const blob = new Blob([invoiceContent], { type: "text/html" });
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = "فاکتور.html";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-}
-
+            fetch('http://localhost:3000/submit-form', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(invoiceData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('خطا در ارسال داده‌ها');
+            });
+        }
+    </script>
 </body>
 </html>
