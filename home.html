@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>فاکتور رزرو</title>
-    <link href="https://fonts.googleapis.com/css2?family=Vazir&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Vazir', sans-serif;
@@ -32,12 +31,8 @@
             list-style-type: none;
             padding: 0;
         }
-        li {
-            margin-bottom: 8px;
-        }
         button {
             padding: 10px 20px;
-            margin-top: 20px;
             background: #28a745;
             color: white;
             border: none;
@@ -45,46 +40,28 @@
             font-size: 16px;
             cursor: pointer;
         }
-        button:hover {
-            background: #218838;
-        }
     </style>
 </head>
 <body>
     <div class="invoice">
         <h2>فاکتور رزرو مراسم</h2>
-        <div class="info">
-            <p><strong>تاریخ مراسم:</strong> <span id="eventDate"></span></p>
-            <p><strong>نوع مراسم:</strong> <span id="eventType"></span></p>
-            <p><strong>تعداد مهمان‌ها:</strong> <span id="guestCount"></span></p>
-            <p><strong>محل برگزاری:</strong> <span id="venue"></span></p>
-            <h3>خدمات انتخابی:</h3>
-            <ul>
-                <li><strong>آب میوه:</strong> <span id="juice"></span></li>
-                <li><strong>فینگر فود:</strong> <span id="fingerFood"></span></li>
-                <li><strong>شام:</strong> <span id="dinner"></span></li>
-                <li><strong>گل‌آرایی:</strong> <span id="flowerArrangement"></span></li>
-            </ul>
-            <p><strong>تعداد مهمانداران:</strong> <span id="staffCount"></span></p>
-        </div>
+        <p><strong>تاریخ مراسم:</strong> <span id="eventDate"></span></p>
+        <p><strong>نوع مراسم:</strong> <span id="eventType"></span></p>
+        <p><strong>تعداد مهمان‌ها:</strong> <span id="guestCount"></span></p>
+        <p><strong>محل برگزاری:</strong> <span id="venue"></span></p>
+        <ul>
+            <li><strong>آب میوه:</strong> <span id="juice"></span></li>
+            <li><strong>فینگر فود:</strong> <span id="fingerFood"></span></li>
+            <li><strong>شام:</strong> <span id="dinner"></span></li>
+            <li><strong>گل‌آرایی:</strong> <span id="flowerArrangement"></span></li>
+        </ul>
         <button onclick="window.print()">چاپ فاکتور</button>
     </div>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            document.getElementById('eventDate').innerText = localStorage.getItem('eventDate');
-            document.getElementById('eventType').innerText = localStorage.getItem('eventType');
-            document.getElementById('guestCount').innerText = localStorage.getItem('guestCount');
-            document.getElementById('venue').innerText = localStorage.getItem('venue');
-            document.getElementById('juice').innerText = localStorage.getItem('juice');
-            document.getElementById('fingerFood').innerText = localStorage.getItem('fingerFood');
-            document.getElementById('dinner').innerText = localStorage.getItem('dinner');
-            document.getElementById('flowerArrangement').innerText = localStorage.getItem('flowerArrangement');
-
-            // محاسبه تعداد مهمانداران
-            const guestCount = parseInt(localStorage.getItem('guestCount')) || 0;
-            const staffCount = Math.ceil(guestCount / 15);
-            document.getElementById('staffCount').innerText = staffCount;
+            ["eventDate", "eventType", "guestCount", "venue", "juice", "fingerFood", "dinner", "flowerArrangement"]
+            .forEach(id => document.getElementById(id).innerText = localStorage.getItem(id));
         });
     </script>
 </body>
