@@ -49,84 +49,61 @@
 <body>
     <div class="container">
         <h2>فرم رزرو مراسم</h2>
-        <label>تاریخ مراسم:</label>
-        <input type="text" id="eventDate" class="datepicker" required><br>
 
-        <label>نوع مراسم:</label>
-        <select id="eventType">
-            <option value="عروسی">عروسی</option>
-            <option value="عقد">عقد</option>
-            <option value="تولد">تولد</option>
-            <option value="مهمانی">مهمانی</option>
-        </select><br>
+        <!-- تغییر به فرم معمولی -->
+        <form action="home.html" method="POST">
+            <label>نام:</label>
+            <input type="text" id="firstName" name="firstName" required><br>
 
-        <label>تعداد مهمان‌ها:</label>
-        <input type="number" id="guestCount" required><br>
+            <label>نام خانوادگی:</label>
+            <input type="text" id="lastName" name="lastName" required><br>
 
-        <label>محل برگزاری:</label>
-        <input type="text" id="venue" required><br>
+            <label>تاریخ مراسم:</label>
+            <input type="text" id="eventDate" name="eventDate" class="datepicker" required><br>
 
-        <label>آب میوه:</label>
-        <select id="juice">
-            <option value="آب میوه - اقتصادی">آب میوه - اقتصادی</option>
-            <option value="آب میوه - معمولی">آب میوه - معمولی</option>
-            <option value="آب میوه - ویژه">آب میوه - ویژه</option>
-        </select><br>
+            <label>نوع مراسم:</label>
+            <select id="eventType" name="eventType">
+                <option value="عروسی">عروسی</option>
+                <option value="عقد">عقد</option>
+                <option value="تولد">تولد</option>
+                <option value="مهمانی">مهمانی</option>
+            </select><br>
 
-        <label>فینگر فود:</label>
-        <select id="fingerFood">
-            <option value="فینگر فود - اقتصادی">فینگر فود - اقتصادی</option>
-            <option value="فینگر فود - معمولی">فینگر فود - معمولی</option>
-            <option value="فینگر فود - ویژه">فینگر فود - ویژه</option>
-        </select><br>
+            <label>تعداد مهمان‌ها:</label>
+            <input type="number" id="guestCount" name="guestCount" required><br>
 
-        <label>شام:</label>
-        <select id="dinner">
-            <option value="شام سلف سرویس">شام سلف سرویس</option>
-            <option value="شام دیس پرس">شام دیس پرس</option>
-        </select><br>
+            <label>محل برگزاری:</label>
+            <input type="text" id="venue" name="venue" required><br>
 
-        <label>گل‌آرایی:</label>
-        <select id="flowerArrangement">
-            <option value="گل آرایی - اقتصادی">گل آرایی - اقتصادی</option>
-            <option value="گل آرایی - معمولی">گل آرایی - معمولی</option>
-            <option value="گل آرایی - ویژه">گل آرایی - ویژه</option>
-        </select><br>
+            <label>آب میوه:</label>
+            <select id="juice" name="juice">
+                <option value="آب میوه - اقتصادی">آب میوه - اقتصادی</option>
+                <option value="آب میوه - معمولی">آب میوه - معمولی</option>
+                <option value="آب میوه - ویژه">آب میوه - ویژه</option>
+            </select><br>
 
-        <button onclick="saveData(event)">رزرو مراسم</button>
+            <label>فینگر فود:</label>
+            <select id="fingerFood" name="fingerFood">
+                <option value="فینگر فود - اقتصادی">فینگر فود - اقتصادی</option>
+                <option value="فینگر فود - معمولی">فینگر فود - معمولی</option>
+                <option value="فینگر فود - ویژه">فینگر فود - ویژه</option>
+            </select><br>
+
+            <label>شام:</label>
+            <select id="dinner" name="dinner">
+                <option value="شام سلف سرویس">شام سلف سرویس</option>
+                <option value="شام دیس پرس">شام دیس پرس</option>
+            </select><br>
+
+            <label>گل‌آرایی:</label>
+            <select id="flowerArrangement" name="flowerArrangement">
+                <option value="گل آرایی - اقتصادی">گل آرایی - اقتصادی</option>
+                <option value="گل آرایی - معمولی">گل آرایی - معمولی</option>
+                <option value="گل آرایی - ویژه">گل آرایی - ویژه</option>
+            </select><br>
+
+            <button type="submit">رزرو مراسم</button>
+        </form>
     </div>
-
-    <script>
-        function saveData(event) {
-            event.preventDefault(); // جلوگیری از ارسال فرم به صورت پیش‌فرض
-
-            const invoiceData = {
-                eventDate: document.getElementById('eventDate').value,
-                eventType: document.getElementById('eventType').value,
-                guestCount: document.getElementById('guestCount').value,
-                venue: document.getElementById('venue').value,
-                juice: document.getElementById('juice').value,
-                fingerFood: document.getElementById('fingerFood').value,
-                dinner: document.getElementById('dinner').value,
-                flowerArrangement: document.getElementById('flowerArrangement').value
-            };
-
-            fetch('http://localhost:3000/submit-form', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(invoiceData)
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert(data.message);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('خطا در ارسال داده‌ها');
-            });
-        }
-    </script>
 </body>
 </html>
