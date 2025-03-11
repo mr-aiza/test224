@@ -1,0 +1,24 @@
+name: Upload Invoice to GitHub
+
+on:
+  push:
+    paths:
+      - 'فاکتور/*'   # زمانی که فایل‌های جدید به پوشه "فاکتور" اضافه می‌شود
+
+jobs:
+  upload_invoice:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v2
+
+      - name: Set up Git
+        uses: actions/setup-git@v2
+
+      - name: Commit and Push Invoice PDF
+        run: |
+          git config --global user.name "Your Name"
+          git config --global user.email "your-email@example.com"
+          git add فاکتور/*
+          git commit -m "Add new invoice"
+          git push
