@@ -98,16 +98,18 @@
 
     <script>
         function saveData() {
-            localStorage.setItem('eventDate', document.getElementById('eventDate').value);
-            localStorage.setItem('eventType', document.getElementById('eventType').value);
-            localStorage.setItem('guestCount', document.getElementById('guestCount').value);
-            localStorage.setItem('venue', document.getElementById('venue').value);
-            localStorage.setItem('juice', document.getElementById('juice').value);
-            localStorage.setItem('fingerFood', document.getElementById('fingerFood').value);
-            localStorage.setItem('dinner', document.getElementById('dinner').value);
-            localStorage.setItem('flowerArrangement', document.getElementById('flowerArrangement').value);
+    localStorage.setItem('eventDate', document.getElementById('eventDate').value);
+    localStorage.setItem('eventType', document.getElementById('eventType').value);
+    localStorage.setItem('guestCount', document.getElementById('guestCount').value);
+    localStorage.setItem('venue', document.getElementById('venue').value);
+    localStorage.setItem('juice', document.getElementById('juice').value);
+    localStorage.setItem('fingerFood', document.getElementById('fingerFood').value);
+    localStorage.setItem('dinner', document.getElementById('dinner').value);
+    localStorage.setItem('flowerArrangement', document.getElementById('flowerArrangement').value);
 
-            window.location.href = 'home.html';
+    window.location.href = 'فاکتور/home.html';  // تغییر مسیر به فاکتور
+}
+
         }
 
         document.addEventListener("DOMContentLoaded", function() {
