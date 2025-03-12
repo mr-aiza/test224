@@ -10,11 +10,11 @@
     <style>
         body {
             font-family: 'Vazir', sans-serif;
-            background-color: #f0f0f5;
+            background-color: #f4f7fa;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
         }
         .invoice-container {
@@ -57,7 +57,11 @@
         <table>
             <tr>
                 <th>مورد</th>
-                <th>مبلغ</th>
+                <th>مقدار</th>
+            </tr>
+            <tr>
+                <td>نام و نام خانوادگی</td>
+                <td id="nameInvoice"></td>
             </tr>
             <tr>
                 <td>نوع مراسم</td>
@@ -70,6 +74,10 @@
             <tr>
                 <td>تعداد مهمان‌ها</td>
                 <td id="guestCountInvoice"></td>
+            </tr>
+            <tr>
+                <td>محل برگزاری</td>
+                <td id="venueInvoice"></td>
             </tr>
             <tr>
                 <td>خدمات اضافی</td>
@@ -86,16 +94,21 @@
         window.onload = function() {
             const reservationData = JSON.parse(localStorage.getItem('reservationData'));
             
+            // نمایش داده‌ها در فاکتور
+            document.getElementById('nameInvoice').innerText = reservationData.firstName + ' ' + reservationData.lastName;
             document.getElementById('eventTypeInvoice').innerText = reservationData.eventType;
             document.getElementById('eventDateInvoice').innerText = reservationData.eventDate;
             document.getElementById('guestCountInvoice').innerText = reservationData.guestCount;
-            
+            document.getElementById('venueInvoice').innerText = reservationData.venue;
+
+            // خدمات اضافی
             const extraServices = [];
             if (reservationData.services.photography) extraServices.push('عکاسی');
             if (reservationData.services.video) extraServices.push('فیلم‌برداری');
             if (reservationData.services.music) extraServices.push('موزیک');
             document.getElementById('extraServicesInvoice').innerText = extraServices.join(', ');
 
+            // محاسبه قیمت
             const totalPrice = calculateTotalPrice(reservationData);
             document.getElementById('totalInvoice').innerText = `${totalPrice} تومان`;
         };
