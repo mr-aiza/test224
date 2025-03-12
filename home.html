@@ -16,6 +16,8 @@
             align-items: center;
             min-height: 100vh;
             margin: 0;
+            flex-direction: column;
+            padding: 20px;
         }
         .invoice-container {
             background-color: white;
@@ -25,6 +27,7 @@
             border-radius: 10px;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
             text-align: right;
+            margin-bottom: 20px;
         }
         h2 {
             font-size: 24px;
@@ -48,6 +51,26 @@
         .total {
             font-weight: bold;
             background-color: #f0f0f5;
+        }
+
+        .contract {
+            background-color: white;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 900px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        .contract h3 {
+            font-size: 22px;
+            color: #333;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .contract p {
+            font-size: 16px;
+            line-height: 1.6;
         }
     </style>
 </head>
@@ -88,6 +111,19 @@
                 <td id="totalInvoice"></td>
             </tr>
         </table>
+    </div>
+
+    <div class="contract">
+        <h3>قول‌نامه</h3>
+        <p>
+            این فاکتور به عنوان یک توافق‌نامه بین طرفین محسوب می‌شود. مشتری و برگزارکننده مراسم به طور مشترک مسئولیت تمام جزئیات و شرایط مندرج در این فاکتور را به عهده می‌گیرند. تمامی خدمات از جمله غذا، نوشیدنی، گل‌آرایی، و موسیقی مطابق با خواسته‌های ذکر شده در این فاکتور ارائه خواهد شد و هیچ تغییری بدون توافق طرفین ایجاد نخواهد شد.
+        </p>
+        <p>
+            در صورت تغییر در زمان یا مکان مراسم، مشتری موظف به اطلاع‌رسانی حداقل 72 ساعت قبل از مراسم می‌باشد. در صورتی که مشتری از تصمیم خود برای برگزاری مراسم منصرف شود، مبلغ پرداخت شده قابل استرداد نخواهد بود.
+        </p>
+        <p>
+            در نهایت، برگزاری مراسم به شرایط کلی و قوانین این مجموعه بستگی دارد و مشتری تایید می‌کند که تمامی قوانین و مقررات مجموعه را پذیرفته است.
+        </p>
     </div>
 
     <script>
