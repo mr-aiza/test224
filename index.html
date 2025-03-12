@@ -5,38 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>رزرو مراسم</title>
 
-    <!-- لینک‌های افزونه‌ها -->
+    <!-- افزونه‌های مورد نیاز -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/persian-date@latest/dist/persian-date.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/persian-datepicker@latest/dist/js/persian-datepicker.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/persian-datepicker@latest/dist/css/persian-datepicker.min.css">
-
-    <!-- افزونه Select2 برای بهبود انتخاب‌ها -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
-
-    <!-- افزونه jQuery Validation برای اعتبارسنجی -->
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
-
-    <!-- افزونه Toastr برای پیام‌های تایید و خطا -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
-    <!-- افزونه Flatpickr برای تاریخ و زمان -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-
-    <!-- افزونه Dropzone برای آپلود فایل‌ها -->
     <link href="https://unpkg.com/dropzone/dist/dropzone.css" rel="stylesheet">
     <script src="https://unpkg.com/dropzone/dist/dropzone.js"></script>
-
-    <!-- افزونه SweetAlert2 برای نمایش پیام‌های زیبا -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <!-- لینک‌های استایل‌های Bootstrap برای طراحی زیبا -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- فونت فارسی -->
     <link href="https://fonts.googleapis.com/css2?family=Vazir&display=swap" rel="stylesheet">
 
     <style>
@@ -175,20 +159,57 @@
 
     <script>
         $(document).ready(function() {
-            // Persian Date Picker
             $('#eventDate').persianDatepicker({
                 format: 'YYYY/MM/DD',
-                autoClose: true,
-                observer: true,
-                altField: '#eventDate'
+                autoClose: true
             });
 
-            // افزونه Select2 برای انتخاب‌های زیبا
             $('#eventType, #juice, #fingerFood, #dinner, #flowerArrangement').select2({
                 dir: 'rtl'
             });
 
-            // افزونه Dropzone برای آپلود فایل‌ها
             Dropzone.autoDiscover = false;
             var myDropzone = new Dropzone("#myDropzone", {
-                url
+                url: "/upload", // آدرس آپلود فایل‌ها
+                paramName: "file",
+                maxFilesize: 5, // محدودیت حجم فایل
+                maxFiles: 5, // حداکثر تعداد فایل‌ها
+                acceptedFiles: "image/*", // فقط تصاویر
+                dictDefaultMessage: "اینجا فایل‌های خود را بکشید و رها کنید"
+            });
+        });
+
+        function saveData() {
+            const formData = {
+                firstName: $("#firstName").val(),
+                lastName: $("#lastName").val(),
+                eventDate: $("#eventDate").val(),
+                eventTime: $("#eventTime").val(),
+                eventType: $("#eventType").val(),
+                guestCount: $("#guestCount").val(),
+                venue: $("#venue").val(),
+                juice: $("#juice").val(),
+                fingerFood: $("#fingerFood").val(),
+                dinner: $("#dinner").val(),
+                flowerArrangement: $("#flowerArrangement").val(),
+                services: {
+                    photography: $("#photography").is(":checked"),
+                    video: $("#video").is(":checked"),
+                    music: $("#music").is(":checked")
+                }
+            };
+
+            // ارسال داده‌ها به سرور یا ذخیره محلی
+            localStorage.setItem('reservationData', JSON.stringify(formData));
+
+            Swal.fire({
+                icon: 'success',
+                title: 'رزرو با موفقیت ثبت شد!',
+                text: 'مراسم شما با موفقیت رزرو شد.',
+            }).then(() => {
+                window.location.href = 'home.html'; // انتقال به صفحه فاکتور
+            });
+        }
+    </script>
+</body>
+</html>
