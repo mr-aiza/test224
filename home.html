@@ -3,114 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>فاکتور رزرو مراسم</title>
+    <title>فاکتور رزرو</title>
+
+    <!-- افزونه‌ها -->
     <link href="https://fonts.googleapis.com/css2?family=Vazir&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Vazir', sans-serif;
-            background-color: #f4f4f4;
-            padding: 20px;
+            background-color: #f0f0f5;
             display: flex;
             justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
-        .invoice {
-            background: white;
-            width: 90%;
-            max-width: 800px;
+        .invoice-container {
+            background-color: white;
+            width: 80%;
+            max-width: 900px;
             padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
             text-align: right;
         }
-        h2, h3 {
+        h2 {
+            font-size: 24px;
             color: #333;
-            border-bottom: 2px solid #ddd;
-            padding-bottom: 10px;
-        }
-        .info {
-            font-size: 16px;
             margin-bottom: 20px;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        li {
-            background: #f8f8f8;
-            margin: 5px 0;
-            padding: 10px;
-            border-radius: 5px;
-        }
-        .contract {
-            margin-top: 20px;
-            font-size: 14px;
-            background: #e9ecef;
-            padding: 10px;
-            border-radius: 5px;
-            text-align: justify;
-        }
-        .signature {
-            margin-top: 30px;
-            display: flex;
-            justify-content: space-between;
-        }
-        .signature div {
-            width: 45%;
             text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
             padding: 10px;
-            border-top: 2px solid #333;
+            text-align: right;
+            border: 1px solid #ddd;
         }
-        button {
-            padding: 10px 20px;
-            margin-top: 20px;
-            background: #28a745;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
+        th {
+            background-color: #f8f8f8;
         }
-        button:hover {
-            background: #218838;
+        .total {
+            font-weight: bold;
+            background-color: #f0f0f5;
         }
     </style>
 </head>
 <body>
-    <div class="invoice">
+    <div class="invoice-container">
         <h2>فاکتور رزرو مراسم</h2>
-        <p><strong>کد پیگیری:</strong> <span id="trackingCode"></span></p>
-        <p><strong>نام:</strong> <span id="firstName"></span> <span id="lastName"></span></p>
-        <p><strong>تاریخ مراسم:</strong> <span id="eventDate"></span></p>
-        <p><strong>زمان مراسم:</strong> <span id="eventTime"></span></p>
-        <p><strong>نوع مراسم:</strong> <span id="eventType"></span></p>
-        <p><strong>محل برگزاری:</strong> <span id="venue"></span></p>
-
-        <h3>خدمات ارائه‌شده</h3>
-        <ul>
-            <li><strong>آب میوه:</strong> <span id="juice"></span></li>
-            <li><strong>فینگر فود:</strong> <span id="fingerFood"></span></li>
-            <li><strong>شام:</strong> <span id="dinner"></span></li>
-            <li><strong>گل‌آرایی:</strong> <span id="flowerArrangement"></span></li>
-            <li><strong>عکاسی:</strong> <span id="photography"></span></li>
-            <li><strong>فیلم‌برداری:</strong> <span id="video"></span></li>
-            <li><strong>موزیک:</strong> <span id="music"></span></li>
-        </ul>
-
-        <div class="contract">
-            <h3>قول‌نامه</h3>
-            <p>
-                این فاکتور به عنوان یک توافق‌نامه بین طرفین محسوب می‌شود. طرفین متعهد به رعایت شرایط و ضوابط ذکر شده در این فاکتور هستند.
-            </p>
-        </div>
-
-        <div class="signature">
-            <div>امضا مشتری</div>
-            <div>امضا مدیریت</div>
-        </div>
-
-        <button onclick="window.print()">چاپ فاکتور</button>
+        <table>
+            <tr>
+                <th>مورد</th>
+                <th>مبلغ</th>
+            </tr>
+            <tr>
+                <td>نوع مراسم</td>
+                <td id="eventTypeInvoice"></td>
+            </tr>
+            <tr>
+                <td>تاریخ مراسم</td>
+                <td id="eventDateInvoice"></td>
+            </tr>
+            <tr>
+                <td>تعداد مهمان‌ها</td>
+                <td id="guestCountInvoice"></td>
+            </tr>
+            <tr>
+                <td>خدمات اضافی</td>
+                <td id="extraServicesInvoice"></td>
+            </tr>
+            <tr class="total">
+                <td>مجموع</td>
+                <td id="totalInvoice"></td>
+            </tr>
+        </table>
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const reservationData = JSON.parse(localStorage.getItem('reservationData
+        window.onload = function() {
+            const reservationData = JSON.parse(localStorage.getItem('reservationData'));
+            
+            document.getElementById('eventTypeInvoice').innerText = reservationData.eventType;
+            document.getElementById('eventDateInvoice').innerText = reservationData.eventDate;
+            document.getElementById('guestCountInvoice').innerText = reservationData.guestCount;
+            
+            const extraServices = [];
+            if (reservationData.services.photography) extraServices.push('عکاسی');
+            if (reservationData.services.video) extraServices.push('فیلم‌برداری');
+            if (reservationData.services.music) extraServices.push('موزیک');
+            document.getElementById('extraServicesInvoice').innerText = extraServices.join(', ');
+
+            const totalPrice = calculateTotalPrice(reservationData);
+            document.getElementById('totalInvoice').innerText = `${totalPrice} تومان`;
+        };
+
+        function calculateTotalPrice(data) {
+            let basePrice = 0;
+
+            // افزودن قیمت بر اساس نوع مراسم
+            switch (data.eventType) {
+                case 'عروسی':
+                    basePrice += 2000000;
+                    break;
+                case 'عقد':
+                    basePrice += 1000000;
+                    break;
+                case 'تولد':
+                    basePrice += 800000;
+                    break;
+                case 'مهمانی':
+                    basePrice += 600000;
+                    break;
+            }
+
+            // افزودن قیمت بر اساس تعداد مهمان‌ها
+            basePrice += data.guestCount * 5000;
+
+            // افزودن قیمت خدمات اضافی
+            if (data.services.photography) basePrice += 100000;
+            if (data.services.video) basePrice += 150000;
+            if (data.services.music) basePrice += 80000;
+
+            return basePrice;
+        }
+    </script>
+</body>
+</html>
