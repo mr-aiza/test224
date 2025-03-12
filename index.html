@@ -20,12 +20,10 @@
      <style>
          body {
              font-family: 'Vazir', sans-serif;
-             background-color: #f0f0f5;
              background-color: #f4f7fa;
              display: flex;
              justify-content: center;
              align-items: center;
-             height: 100vh;
              min-height: 100vh;
              margin: 0;
          }
@@ -69,18 +67,6 @@
          }
          .btn-submit:hover {
              background-color: #218838;
-         }
-         .btn-secondary {
-             background-color: #17a2b8;
-             padding: 12px 20px;
-             color: white;
-             border: none;
-             border-radius: 8px;
-             font-size: 18px;
-             width: 100%;
-         }
-         .btn-secondary:hover {
-             background-color: #138496;
          }
          .form-group {
              margin-bottom: 20px;
@@ -209,6 +195,10 @@
                  }
              };
  
+             const trackingCode = generateTrackingCode();
+ 
+             // ذخیره داده‌ها در LocalStorage
+             formData.trackingCode = trackingCode;
              localStorage.setItem('reservationData', JSON.stringify(formData));
  
              Swal.fire({
@@ -218,6 +208,10 @@
              }).then(() => {
                  window.location.href = 'home.html';
              });
+         }
+ 
+         function generateTrackingCode() {
+             return 'RES-' + Math.random().toString(36).substr(2, 9).toUpperCase();
          }
      </script>
  </body>
