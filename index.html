@@ -6,6 +6,16 @@
     <title>رزرو مراسم</title>
 
     <!-- افزونه‌ها -->
+    <link href="https://fonts.googleapis.com/css2?family=Vazir&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/persian-datepicker@latest/dist/js/persian-datepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/persian-datepicker@latest/dist/css/persian-datepicker.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://unpkg.com/dropzone/dist/dropzone.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/dropzone/dist/dropzone.css">
 
     <style>
         body {
@@ -166,36 +176,39 @@
         });
 
         function saveData() {
-    const formData = {
-        firstName: $("#firstName").val(),
-        lastName: $("#lastName").val(),
-        eventDate: $("#eventDate").val(),
-        eventTime: $("#eventTime").val(),
-        eventType: $("#eventType").val(),
-        guestCount: $("#guestCount").val(),
-        venue: $("#venue").val(),
-        juice: $("#juice").val(),
-        fingerFood: $("#fingerFood").val(),
-        dinner: $("#dinner").val(),
-        flowerArrangement: $("#flowerArrangement").val(),
-        services: {
-            photography: $("#photography").is(":checked"),
-            video: $("#video").is(":checked"),
-            music: $("#music").is(":checked")
+            const formData = {
+                firstName: $("#firstName").val(),
+                lastName: $("#lastName").val(),
+                eventDate: $("#eventDate").val(),
+                eventTime: $("#eventTime").val(),
+                eventType: $("#eventType").val(),
+                guestCount: $("#guestCount").val(),
+                venue: $("#venue").val(),
+                juice: $("#juice").val(),
+                fingerFood: $("#fingerFood").val(),
+                dinner: $("#dinner").val(),
+                flowerArrangement: $("#flowerArrangement").val(),
+                services: {
+                    photography: $("#photography").is(":checked"),
+                    video: $("#video").is(":checked"),
+                    music: $("#music").is(":checked")
+                }
+            };
+
+            const trackingCode = generateTrackingCode();
+
+            // ذخیره داده‌ها در LocalStorage
+            formData.trackingCode = trackingCode;
+            localStorage.setItem('reservationData', JSON.stringify(formData));
+
+            Swal.fire({
+                icon: 'success',
+                title: 'رزرو با موفقیت ثبت شد!',
+                text: 'مراسم شما با موفقیت رزرو شد.',
+            }).then(() => {
+                window.location.href = 'home.html';
+            });
         }
-    };
-
-    localStorage.setItem('reservationData', JSON.stringify(formData));
-
-    Swal.fire({
-        icon: 'success',
-        title: 'رزرو با موفقیت ثبت شد!',
-        text: 'مراسم شما با موفقیت رزرو شد.',
-    }).then(() => {
-        window.location.href = "home.html";  // این خط صفحه را به home.html هدایت می‌کند
-    });
-}
-
 
         function generateTrackingCode() {
             return 'RES-' + Math.random().toString(36).substr(2, 9).toUpperCase();
