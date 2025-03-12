@@ -202,11 +202,14 @@
             localStorage.setItem('reservationData', JSON.stringify(formData));
 
             Swal.fire({
-                icon: 'success',
-                title: 'رزرو با موفقیت ثبت شد!',
-                text: 'مراسم شما با موفقیت رزرو شد.',
-            }).then(() => {
-                window.location.href = 'home.html';
+            icon: 'success',
+            title: 'رزرو با موفقیت ثبت شد!',
+            text: 'مراسم شما با موفقیت رزرو شد.',
+                        }).then(() => {
+            alert("در حال انتقال به صفحه بعد...")
+                window.location.href = "home.html";
+});
+
             });
         }
 
