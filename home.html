@@ -7,6 +7,9 @@
 
     <!-- افزونه‌ها -->
     <link href="https://fonts.googleapis.com/css2?family=Vazir&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.14/dist/sweetalert2.min.css" rel="stylesheet">
     <style>
         body {
             font-family: 'Vazir', sans-serif;
@@ -28,6 +31,7 @@
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
             text-align: right;
             margin-bottom: 20px;
+            transition: all 0.3s ease;
         }
         h2 {
             font-size: 24px;
@@ -72,10 +76,36 @@
             font-size: 16px;
             line-height: 1.6;
         }
+
+        .icon-button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .icon-button:hover {
+            background-color: #45a049;
+        }
+
+        .alert-button {
+            padding: 10px;
+            background-color: #ff6347;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .alert-button:hover {
+            background-color: #e55347;
+        }
+
     </style>
 </head>
 <body>
-    <div class="invoice-container">
+    <div class="invoice-container" data-aos="fade-up">
         <h2>فاکتور رزرو مراسم</h2>
         <table>
             <tr>
@@ -111,9 +141,14 @@
                 <td id="totalInvoice"></td>
             </tr>
         </table>
+
+        <!-- Example icon button -->
+        <button class="icon-button">
+            <i class="fas fa-check-circle"></i> تایید
+        </button>
     </div>
 
-    <div class="contract">
+    <div class="contract" data-aos="fade-up">
         <h3>قول‌نامه</h3>
         <p>
             این فاکتور به عنوان یک توافق‌نامه بین طرفین محسوب می‌شود. مشتری و برگزارکننده مراسم به طور مشترک مسئولیت تمام جزئیات و شرایط مندرج در این فاکتور را به عهده می‌گیرند. تمامی خدمات از جمله غذا، نوشیدنی، گل‌آرایی، و موسیقی مطابق با خواسته‌های ذکر شده در این فاکتور ارائه خواهد شد و هیچ تغییری بدون توافق طرفین ایجاد نخواهد شد.
@@ -126,7 +161,24 @@
         </p>
     </div>
 
+    <!-- Example alert button -->
+    <button class="alert-button" onclick="showAlert()">نمایش پیام</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.14/dist/sweetalert2.min.js"></script>
     <script>
+        AOS.init(); // Initialize AOS (animations on scroll)
+
+        function showAlert() {
+            Swal.fire({
+                title: 'پیام موفقیت',
+                text: 'اطلاعات با موفقیت ذخیره شد!',
+                icon: 'success',
+                confirmButtonText: 'تایید'
+            });
+        }
+
         window.onload = function() {
             const reservationData = JSON.parse(localStorage.getItem('reservationData'));
             
