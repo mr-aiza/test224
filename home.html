@@ -9,13 +9,14 @@
         body {
             font-family: 'Vazir', sans-serif;
             background-color: #f4f4f4;
-            text-align: center;
             padding: 20px;
+            display: flex;
+            justify-content: center;
         }
         .invoice {
             background: white;
-            width: 60%;
-            margin: auto;
+            width: 90%;
+            max-width: 800px;
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -77,27 +78,28 @@
 <body>
     <div class="invoice">
         <h2>فاکتور رزرو مراسم</h2>
-        <p><strong>نام:</strong> <span id="firstName"></span></p>
-        <p><strong>نام خانوادگی:</strong> <span id="lastName"></span></p>
-        <p><strong>تاریخ:</strong> <span id="eventDate"></span></p>
+        <p><strong>کد پیگیری:</strong> <span id="trackingCode"></span></p>
+        <p><strong>نام:</strong> <span id="firstName"></span> <span id="lastName"></span></p>
+        <p><strong>تاریخ مراسم:</strong> <span id="eventDate"></span></p>
+        <p><strong>زمان مراسم:</strong> <span id="eventTime"></span></p>
         <p><strong>نوع مراسم:</strong> <span id="eventType"></span></p>
         <p><strong>محل برگزاری:</strong> <span id="venue"></span></p>
-        
+
         <h3>خدمات ارائه‌شده</h3>
         <ul>
             <li><strong>آب میوه:</strong> <span id="juice"></span></li>
             <li><strong>فینگر فود:</strong> <span id="fingerFood"></span></li>
             <li><strong>شام:</strong> <span id="dinner"></span></li>
             <li><strong>گل‌آرایی:</strong> <span id="flowerArrangement"></span></li>
+            <li><strong>عکاسی:</strong> <span id="photography"></span></li>
+            <li><strong>فیلم‌برداری:</strong> <span id="video"></span></li>
+            <li><strong>موزیک:</strong> <span id="music"></span></li>
         </ul>
-
-        <p><strong>تعداد مهمانداران:</strong> <span id="staffCount"></span></p>
 
         <div class="contract">
             <h3>قول‌نامه</h3>
             <p>
-                این فاکتور به عنوان یک توافق‌نامه بین طرفین محسوب می‌شود. طرفین متعهد به رعایت شرایط و ضوابط ذکر شده در این فاکتور هستند.  
-                در صورت بروز هرگونه اختلاف، موضوع به صورت دوستانه حل و فصل خواهد شد.
+                این فاکتور به عنوان یک توافق‌نامه بین طرفین محسوب می‌شود. طرفین متعهد به رعایت شرایط و ضوابط ذکر شده در این فاکتور هستند.
             </p>
         </div>
 
@@ -111,21 +113,4 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            document.getElementById('firstName').innerText = localStorage.getItem('firstName');
-            document.getElementById('lastName').innerText = localStorage.getItem('lastName');
-            document.getElementById('eventDate').innerText = localStorage.getItem('eventDate');
-            document.getElementById('eventType').innerText = localStorage.getItem('eventType');
-            document.getElementById('venue').innerText = localStorage.getItem('venue');
-            document.getElementById('juice').innerText = localStorage.getItem('juice');
-            document.getElementById('fingerFood').innerText = localStorage.getItem('fingerFood');
-            document.getElementById('dinner').innerText = localStorage.getItem('dinner');
-            document.getElementById('flowerArrangement').innerText = localStorage.getItem('flowerArrangement');
-
-            // محاسبه تعداد مهمانداران
-            const guestCount = parseInt(localStorage.getItem('guestCount')) || 0;
-            const staffCount = Math.ceil(guestCount / 15);
-            document.getElementById('staffCount').innerText = staffCount;
-        });
-    </script>
-</body>
-</html>
+            const reservationData = JSON.parse(localStorage.getItem('reservationData
