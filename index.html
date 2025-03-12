@@ -166,42 +166,36 @@
         });
 
         function saveData() {
-            const formData = {
-                firstName: $("#firstName").val(),
-                lastName: $("#lastName").val(),
-                eventDate: $("#eventDate").val(),
-                eventTime: $("#eventTime").val(),
-                eventType: $("#eventType").val(),
-                guestCount: $("#guestCount").val(),
-                venue: $("#venue").val(),
-                juice: $("#juice").val(),
-                fingerFood: $("#fingerFood").val(),
-                dinner: $("#dinner").val(),
-                flowerArrangement: $("#flowerArrangement").val(),
-                services: {
-                    photography: $("#photography").is(":checked"),
-                    video: $("#video").is(":checked"),
-                    music: $("#music").is(":checked")
-                }
-            };
-
-            const trackingCode = generateTrackingCode();
-
-            // ذخیره داده‌ها در LocalStorage
-            formData.trackingCode = trackingCode;
-            localStorage.setItem('reservationData', JSON.stringify(formData));
-
-            Swal.fire({
-            icon: 'success',
-            title: 'رزرو با موفقیت ثبت شد!',
-            text: 'مراسم شما با موفقیت رزرو شد.',
-                        }).then(() => {
-            alert("در حال انتقال به صفحه بعد...")
-                window.location.href = "home.html";
-});
-
-            });
+    const formData = {
+        firstName: $("#firstName").val(),
+        lastName: $("#lastName").val(),
+        eventDate: $("#eventDate").val(),
+        eventTime: $("#eventTime").val(),
+        eventType: $("#eventType").val(),
+        guestCount: $("#guestCount").val(),
+        venue: $("#venue").val(),
+        juice: $("#juice").val(),
+        fingerFood: $("#fingerFood").val(),
+        dinner: $("#dinner").val(),
+        flowerArrangement: $("#flowerArrangement").val(),
+        services: {
+            photography: $("#photography").is(":checked"),
+            video: $("#video").is(":checked"),
+            music: $("#music").is(":checked")
         }
+    };
+
+    localStorage.setItem('reservationData', JSON.stringify(formData));
+
+    Swal.fire({
+        icon: 'success',
+        title: 'رزرو با موفقیت ثبت شد!',
+        text: 'مراسم شما با موفقیت رزرو شد.',
+    }).then(() => {
+        window.location.href = "home.html";  // این خط صفحه را به home.html هدایت می‌کند
+    });
+}
+
 
         function generateTrackingCode() {
             return 'RES-' + Math.random().toString(36).substr(2, 9).toUpperCase();
