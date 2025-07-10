@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" class="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>رزرو مراسم | تشریفات رویایی</title>
+  <meta name="description" content="فرم رزرو مراسم با امکانات کامل برای مشتریان گرامی">
+  <link href="https://fonts.googleapis.com/css2?family=Vazir&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/darkmode.css">
+</head>
+<body>
+  <button id="themeToggle" title="تغییر تم">🌙</button>
+  <header>
+    <h1>تشریفات رویایی</h1>
+    <p>برگزارکننده لاکچری‌ترین مراسم‌های عروسی</p>
+  </header>
+  <main>
+
+<h2>فرم رزرو مراسم</h2>
+<form action="#" method="POST" style="display: flex; flex-direction: column; gap: 10px; max-width: 400px;">
+  <label>نام و نام خانوادگی:
+    <input type="text" name="fullname" required>
+  </label>
+  <label>تاریخ مراسم:
+    <input type="date" name="date" required>
+  </label>
+  <label>تعداد مهمان‌ها:
+    <input type="number" name="guests" required>
+  </label>
+  <label>نوع خدمات:
+    <select name="service">
+      <option>کامل</option>
+      <option>مراسم ساده</option>
+      <option>فقط پذیرایی</option>
+    </select>
+  </label>
+  <button type="submit">ثبت رزرو</button>
+</form>
+
+  </main>
+  <script src="js/darkmode.js"></script>
+</body>
+</html>
