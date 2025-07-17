@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ثبت‌نام کاربر جدید</title>
+  <style>
+    body { font-family: Vazir, sans-serif; padding: 20px; max-width: 400px; margin: auto; }
+    label { display: block; margin-top: 15px; }
+    input, select { width: 100%; padding: 8px; margin-top: 5px; box-sizing: border-box; }
+    button { margin-top: 20px; padding: 10px; width: 100%; cursor: pointer; background-color: #28a745; color: white; border: none; }
+    .error { color: red; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h1>ثبت‌نام</h1>
+
+  <form id="registerForm">
+    <label for="fullname">نام کامل:</label>
+    <input type="text" id="fullname" name="fullname" required />
+
+    <label for="phone">شماره تلفن:</label>
+    <input type="tel" id="phone" name="phone" pattern="[0-9]{10,15}" placeholder="مثلاً 09123456789" required />
+
+    <label for="password">رمز عبور:</label>
+    <input type="password" id="password" name="password" minlength="6" required />
+
+    <label for="role">نقش کاربری:</label>
+    <select id="role" name="role" required>
+      <option value="">انتخاب کنید</option>
+      <option value="customer">مشتری</option>
+      <option value="staff">کارکنان</option>
+      <option value="admin">مدیر</option>
+    </select>
+
+    <button type="submit">ثبت‌نام</button>
+  </form>
+
+  <div id="message"></div>
+  <p>حساب کاربری دارید؟ <a href="login.html">وارد شوید</a></p>
+
+  <script>
+    const form = document.getElementById('registerForm');
+    const messageDiv = document.getElementById('message');
+
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      messageDiv.textContent = '';
+      messageDiv.className = '';
+
+      const fullname = form.fullname.value.trim();
+      const phone = form.phone.value.trim();
+      const password = form.password.value;
+      const role = form.role.value;
+
+      if (!role) {
+        messageDiv.textContent = 'لطفاً نقش کاربری را انتخاب کنید.';
+        messageDiv.className = 'error';
+        return;
+      }
+
+      try {
+        const res = await fetch('/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ fullname, phone, password, role })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'خطا در ثبت‌نام');
+
+        messageDiv.textContent = 'ثبت‌نام موفقیت‌آمیز بود. لطفاً به صفحه ورود بروید.';
+        messageDiv.className = 'success';
+        form.reset();
+      } catch (err) {
+        messageDiv.textContent = err.message;
+        messageDiv.className = 'error';
+      }
+    });
+  </script>
+</body>
+</html>

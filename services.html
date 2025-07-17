@@ -1,23 +1,214 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl" class="">
+<html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>خدمات | تشریفات رویایی</title>
-  <meta name="description" content="لیست کامل خدمات ارائه شده توسط تیم تشریفات رویایی">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <!-- 🔑 سئو -->
+<title>خدمات تشریفات | صفر تا صد مراسم عروسی</title>
+<meta name="description" content="خدمات کامل تشریفات عروسی شامل پذیرایی، موسیقی، گل‌آرایی، نورپردازی، عکاسی، فیلمبرداری و همه نیازهای مراسم شما با بالاترین کیفیت.">
+<meta name="keywords" content="خدمات عروسی، گل‌آرایی، نورپردازی، پذیرایی، تشریفات مجالس، فیلمبرداری عروسی">
+<meta name="robots" content="index, follow">
+<meta http-equiv="Content-Language" content="fa" />
+
+  <link rel="stylesheet" href="Style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Vazir&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/darkmode.css">
 </head>
 <body>
-  <button id="themeToggle" title="تغییر تم">🌙</button>
-  <header>
-    <h1>تشریفات رویایی</h1>
-    <p>برگزارکننده لاکچری‌ترین مراسم‌های عروسی</p>
-  </header>
-  <main>
-<h2>خدمات ما</h2><ul><li>موسیقی زنده</li><li>دیزاین حرفه‌ای</li><li>پذیرایی VIP</li></ul>
-  </main>
-  <script src="js/darkmode.js"></script>
+
+<canvas id="bgCanvas"></canvas>
+
+<button id="audioToggle">🎵 پخش موسیقی</button>
+<audio id="wigenAudio" preload="auto" loop>
+  <source src="wigen_wedding.mp3" type="audio/mpeg" />
+</audio>
+
+<nav>
+  <a href="index.html">خانه</a>
+  <a href="services.html">خدمات ما</a>
+  <a href="portfolio.html">نمونه‌کارهای ما</a>
+  <a href="booking.html">رزرو مراسم</a>
+  <a href="cooperation.html">همکاری با شما</a>
+  <a href="waiter.html">استخدام مهماندار</a>
+  <a href="about.html">درباره ما</a>
+  <a href="contact.html">تماس با ما</a>
+</nav>
+
+<header>
+  <h1>✨ خدمات مراسم از ۰ تا ۱۰۰ ✨</h1>
+</header>
+
+<main>
+  <section class="service-box">
+    <h2>💬 مشاوره اولیه رایگان</h2>
+    <ul>
+      <li>🎯 بررسی دقیق سلیقه و بودجه شما</li>
+      <li>📝 ارائه پیشنهادهای متنوع طبق سبک و علاقه‌مندی شما</li>
+      <li>🤝 جلسه حضوری یا آنلاین جهت هماهنگی اولیه</li>
+    </ul>
+  </section>
+
+  <section class="service-box">
+    <h2>🏰 انتخاب و رزرو مکان برگزاری</h2>
+    <ul>
+      <li>🌳 باغ‌های اختصاصی، سالن‌های لوکس، ویلاهای مجلل</li>
+      <li>📍 بررسی مکان بر اساس موقعیت، ظرفیت، بودجه و دسترسی</li>
+      <li>🔑 رزرو کامل با قرارداد رسمی</li>
+    </ul>
+  </section>
+
+  <section class="service-box">
+    <h2>🌹 طراحی دکوراسیون و گل‌آرایی</h2>
+    <ul>
+      <li>🎨 طراحی تم اختصاصی بر اساس رنگ، فصل یا موضوع خاص</li>
+      <li>🌸 گل‌آرایی طبیعی میزها، صحنه، ورودی و صندلی‌ها</li>
+      <li>🚗 گل‌آرایی ماشین عروس با طراحی خاص (هدیه ویژه ما 🎁)</li>
+    </ul>
+  </section>
+
+  <section class="service-box">
+    <h2>🍽️ منوی غذایی و کیترینگ تشریفاتی</h2>
+    <ul>
+      <li>👨‍🍳 غذاهای ایرانی، فرنگی، دریایی و گیاهخواری</li>
+      <li>🍰 دسرها و نوشیدنی‌های اختصاصی</li>
+      <li>🥂 پذیرایی توسط مهمانداران آموزش‌دیده و یونیفرم‌دار</li>
+    </ul>
+  </section>
+
+  <section class="service-box">
+    <h2>🎵 موزیک زنده، DJ و نورپردازی</h2>
+    <ul>
+      <li>🎹 نوازندگان زنده (پیانو، ویولن، گروه سنتی و مدرن)</li>
+      <li>🎧 دی‌جی با سبک‌های متنوع موسیقی طبق سلیقه شما</li>
+      <li>💡 نورپردازی هوشمند هماهنگ با موزیک</li>
+    </ul>
+  </section>
+
+  <section class="service-box">
+    <h2>🎥 فیلمبرداری سینمایی و عکاسی پرتره</h2>
+    <ul>
+      <li>📸 عکاسی لحظه‌ای و پرتره با کیفیت بالا</li>
+      <li>🎬 فیلمبرداری با سبک مستند، سینمایی و هلی‌شات</li>
+      <li>📀 تحویل آلبوم دیجیتال و فیزیکی</li>
+    </ul>
+  </section>
+
+  <section class="service-box">
+    <h2>👥 مدیریت مهمانان و تشریفات</h2>
+    <ul>
+      <li>📋 چک‌لیست کامل مهمان‌ها</li>
+      <li>👗 هدایت مهمان‌ها، پذیرایی ورودی، جایگاه VIP</li>
+      <li>🎁 بن‌های تخفیف برای مهمان‌ها (آپشن اختیاری)</li>
+    </ul>
+  </section>
+
+  <section class="service-box">
+    <h2>💌 کارت دعوت دیجیتال و فیزیکی</h2>
+    <ul>
+      <li>📱 طراحی کارت دعوت با لینک شخصی‌سازی شده</li>
+      <li>✉️ چاپ کارت‌های فیزیکی لاکچری با بسته‌بندی شیک</li>
+    </ul>
+  </section>
+
+  <section class="service-box">
+    <h2>💄 خدمات ویژه عروس و داماد</h2>
+    <ul>
+      <li>💇‍♀️ میکاپ و گریم حرفه‌ای با برندهای لوکس</li>
+      <li>👗 لباس‌های خاص، مزون اختصاصی و طراحی سفارشی</li>
+      <li>🚘 ترنسفر VIP (خودروی لوکس + راننده اختصاصی)</li>
+      <li>👯 ساقدوش هماهنگ با استایل مراسم</li>
+    </ul>
+  </section>
+
+  <section class="service-box">
+    <h2>💍 خدمات ویژه دیگر</h2>
+    <ul>
+      <li>🐶 سالن نگهداری ویژه حیوانات خانگی</li>
+      <li>💒 سالن عقد لاکچری با موسیقی زنده و نور خاص</li>
+      <li>🎟️ کوپن هدیه + بن تخفیف ویژه رزرو زودهنگام</li>
+      <li>📦 بسته‌های VIP مخصوص زوج‌های خاص</li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  &copy; 2025 تشریفات رویایی. تمامی حقوق محفوظ است.
+</footer>
+
+<!-- اسکریپت قلب و موزیک -->
+<script>
+  const audio = document.getElementById('wigenAudio');
+  const btn = document.getElementById('audioToggle');
+  let playing = false;
+
+  btn.addEventListener('click', () => {
+    if (playing) {
+      audio.pause();
+      btn.textContent = '🎵 پخش موسیقی';
+    } else {
+      audio.play().catch(() => alert("برای پخش، ابتدا روی صفحه کلیک کنید."));
+      btn.textContent = '⏸ توقف موسیقی';
+    }
+    playing = !playing;
+  });
+
+  document.addEventListener('click', function autoPlayOnce() {
+    audio.play().catch(() => {});
+    document.removeEventListener('click', autoPlayOnce);
+  });
+
+  const canvas = document.getElementById('bgCanvas');
+  const ctx = canvas.getContext('2d');
+  let W = canvas.width = window.innerWidth;
+  let H = canvas.height = window.innerHeight;
+
+  function drawHeart(ctx, x, y, size, color) {
+    ctx.save();
+    ctx.beginPath();
+    const topCurveHeight = size * 0.3;
+    ctx.moveTo(x, y + topCurveHeight);
+    ctx.bezierCurveTo(x, y, x - size / 2, y, x - size / 2, y + topCurveHeight);
+    ctx.bezierCurveTo(x - size / 2, y + (size + topCurveHeight) / 2, x, y + (size + topCurveHeight) / 1.2, x, y + size);
+    ctx.bezierCurveTo(x, y + (size + topCurveHeight) / 1.2, x + size / 2, y + (size + topCurveHeight) / 2, x + size / 2, y + topCurveHeight);
+    ctx.bezierCurveTo(x + size / 2, y, x, y, x, y + topCurveHeight);
+    ctx.closePath();
+    ctx.fillStyle = color;
+    ctx.fill();
+    ctx.restore();
+  }
+
+  const hearts = [];
+  for (let i = 0; i < 70; i++) {
+    hearts.push({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      size: Math.random() * 16 + 8,
+      speedX: Math.random() * 0.5 + 0.2,
+      speedY: Math.random() * 0.5 + 0.2,
+      color: `rgba(236,64,122,${Math.random() * 0.4 + 0.3})`
+    });
+  }
+
+  function update() {
+    ctx.clearRect(0, 0, W, H);
+    for (const h of hearts) {
+      h.x += h.speedX;
+      h.y += h.speedY;
+      if (h.x > W) h.x = -h.size;
+      if (h.y > H) h.y = -h.size;
+      drawHeart(ctx, h.x, h.y, h.size, h.color);
+    }
+    requestAnimationFrame(update);
+  }
+
+  window.addEventListener('resize', () => {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  });
+
+  update();
+</script>
+</script>
+<!-- چت آنلاین -->
+<script src="tawk.js"></script>
 </body>
 </html>

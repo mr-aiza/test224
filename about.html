@@ -1,23 +1,139 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl" class="">
+<html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>درباره ما | تشریفات رویایی</title>
-  <meta name="description" content="معرفی تیم، اهداف و تجربه‌های تشریفات رویایی">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <!-- 🔑 سئو -->
+<title>درباره ما | تشریفات رویایی</title>
+<meta name="description" content="با تشریفات رویایی بیشتر آشنا شوید. تیم ما متشکل از حرفه‌ای‌ترین برگزارکنندگان مراسم‌های لاکچری، با سال‌ها تجربه در برگزاری جشن‌های باشکوه.">
+<meta name="keywords" content="درباره ما، تیم تشریفات، سابقه برگزاری مراسم، مدیریت مراسم">
+<meta name="robots" content="index, follow">
+<meta http-equiv="Content-Language" content="fa" />
+
+  <link rel="stylesheet" href="Style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Vazir&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/darkmode.css">
 </head>
 <body>
-  <button id="themeToggle" title="تغییر تم">🌙</button>
-  <header>
-    <h1>تشریفات رویایی</h1>
-    <p>برگزارکننده لاکچری‌ترین مراسم‌های عروسی</p>
-  </header>
-  <main>
-<h2>درباره ما</h2><p>ما با بیش از ۱۰ سال تجربه در برگزاری مراسم‌های لاکچری همراه شما هستیم.</p>
-  </main>
-  <script src="js/darkmode.js"></script>
+
+<canvas id="bgCanvas"></canvas>
+
+<button id="audioToggle">🎵 پخش موسیقی</button>
+<audio id="wigenAudio" preload="auto" loop>
+  <source src="wigen_wedding.mp3" type="audio/mpeg" />
+</audio>
+
+<nav>
+  <a href="index.html">خانه</a>
+  <a href="services.html">خدمات ما</a>
+  <a href="portfolio.html">نمونه‌کارهای ما</a>
+  <a href="booking.html">رزرو مراسم</a>
+  <a href="cooperation.html">همکاری با شما</a>
+  <a href="waiter.html">استخدام مهماندار</a>
+  <a href="about.html">درباره ما</a>
+  <a href="contact.html">تماس با ما</a>
+</nav>
+
+<header>
+  <h1>💍 درباره تشریفات رویایی 💐</h1>
+  <div class="intro-text">
+    <p>ما فقط برگزارکننده نیستیم، ما خالق لحظات جاودانه‌ایم...</p>
+  </div>
+</header>
+
+<main>
+  <section class="service-box">
+    <h2>🎀 با افتخار، همراه شما هستیم</h2>
+    <p>تشریفات رویایی، نتیجه سال‌ها تلاش بی‌وقفه، خلاقیت و عشق به زیبایی است. ما با بیش از یک دهه تجربه در عرصه طراحی و برگزاری مراسم، اکنون به‌عنوان یکی از پیشتازان صنعت تشریفات در کشور شناخته می‌شویم.</p>
+    <p>ما باور داریم که هر مراسمی منحصر‌به‌فرد است و باید با دقت، ظرافت و خلاقیتی بی‌همتا برنامه‌ریزی شود. از همان تماس اولیه تا آخرین لحظه جشن، کنار شما هستیم و همه چیز را با وسواس و عشق مدیریت می‌کنیم.</p>
+    <p>در تیم ما، طراحان دکور، گل‌آراها، نورپردازان، صدابرداران، فیلم‌برداران، آشپزهای بین‌المللی، و متخصصان هماهنگی مراسم با شور و انگیزه بالا فعالیت می‌کنند تا هر جزء مراسم به زیبایی بدرخشد.</p>
+    <p>در تشریفات رویایی ما به‌دنبال فراتر رفتن از استانداردها هستیم؛ باغ‌های اختصاصی، طراحی دکورهای تماتیک، ورود خلاقانه عروس و داماد، نورپردازی سینمایی و موسیقی زنده از جمله خدمات خاص ما هستند.</p>
+    <p>ما با درک دغدغه‌های شما، همه مراحل را شفاف و برنامه‌ریزی‌شده پیش می‌بریم. جلسات مشاوره اختصاصی، بازدید از مکان‌های برگزاری، ارائه طرح‌های سه‌بعدی، و چک‌لیست‌های زمان‌بندی دقیق از جمله ابزارهای مدیریتی ماست.</p>
+    <p>برای هر زوج، یک پکیج اختصاصی طراحی می‌شود؛ مطابق با سلیقه، بودجه و آرزوهایشان. انعطاف‌پذیری بالا و خلاقیت بی‌پایان، وجه تمایز تشریفات رویایی با دیگر برگزارکنندگان است.</p>
+    <p>امنیت و آرامش خاطر شما اولویت ماست. با عقد قرارداد شفاف، پشتیبانی ۲۴ ساعته، بیمه کامل مراسم، و استفاده از تجهیزات به‌روز، همه نگرانی‌ها را از دوش شما برمی‌داریم.</p>
+    <p>در کنار برگزاری عروسی، مراسم‌های نامزدی، تولد، سالگرد ازدواج، جشن‌های سازمانی و رویدادهای لوکس دیگر نیز با تخصص بالا توسط تیم ما اجرا می‌شود.</p>
+    <p>هدف ما، تنها رضایت نیست؛ هدف ما ثبت لحظاتی فراموش‌نشدنی در قلب و خاطرات شماست. لحظاتی که در قاب دوربین‌ها جاودانه شوند و در ذهن میهمانانتان بدرخشند.</p>
+    <p>اگر رویای شما، شبی خاص، شیک و بی‌نقص است؛ تشریفات رویایی، همان چیزی‌ست که در جستجویش هستید. با ما تماس بگیرید و اجازه دهید رویاهایتان را زندگی کنید.</p>
+  </section>
+</main>
+
+<footer>
+  &copy; 2025 تشریفات رویایی. تمامی حقوق محفوظ است.
+</footer>
+
+<script>
+  const audio = document.getElementById('wigenAudio');
+  const btn = document.getElementById('audioToggle');
+  let playing = false;
+
+  btn.addEventListener('click', () => {
+    if (playing) {
+      audio.pause();
+      btn.textContent = '🎵 پخش موسیقی';
+    } else {
+      audio.play().catch(() => alert("برای پخش، ابتدا روی صفحه کلیک کنید."));
+      btn.textContent = '⏸ توقف موسیقی';
+    }
+    playing = !playing;
+  });
+
+  document.addEventListener('click', function autoPlayOnce() {
+    audio.play().catch(() => {});
+    document.removeEventListener('click', autoPlayOnce);
+  });
+
+  const canvas = document.getElementById('bgCanvas');
+  const ctx = canvas.getContext('2d');
+  let W = canvas.width = window.innerWidth;
+  let H = canvas.height = window.innerHeight;
+
+  function drawHeart(ctx, x, y, size, color) {
+    ctx.save();
+    ctx.beginPath();
+    const topCurveHeight = size * 0.3;
+    ctx.moveTo(x, y + topCurveHeight);
+    ctx.bezierCurveTo(x, y, x - size / 2, y, x - size / 2, y + topCurveHeight);
+    ctx.bezierCurveTo(x - size / 2, y + (size + topCurveHeight) / 2, x, y + (size + topCurveHeight) / 1.2, x, y + size);
+    ctx.bezierCurveTo(x, y + (size + topCurveHeight) / 1.2, x + size / 2, y + (size + topCurveHeight) / 2, x + size / 2, y + topCurveHeight);
+    ctx.bezierCurveTo(x + size / 2, y, x, y, x, y + topCurveHeight);
+    ctx.closePath();
+    ctx.fillStyle = color;
+    ctx.fill();
+    ctx.restore();
+  }
+
+  const hearts = [];
+  for (let i = 0; i < 70; i++) {
+    hearts.push({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      size: Math.random() * 16 + 8,
+      speedX: Math.random() * 0.5 + 0.2,
+      speedY: Math.random() * 0.5 + 0.2,
+      color: `rgba(236,64,122,${Math.random() * 0.4 + 0.3})`
+    });
+  }
+
+  function update() {
+    ctx.clearRect(0, 0, W, H);
+    for (const h of hearts) {
+      h.x += h.speedX;
+      h.y += h.speedY;
+      if (h.x > W) h.x = -h.size;
+      if (h.y > H) h.y = -h.size;
+      drawHeart(ctx, h.x, h.y, h.size, h.color);
+    }
+    requestAnimationFrame(update);
+  }
+
+  window.addEventListener('resize', () => {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  });
+
+  update();
+</script>
+</script>
+<!-- چت آنلاین -->
+<script src="tawk.js"></script>
 </body>
 </html>

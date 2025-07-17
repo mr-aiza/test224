@@ -1,23 +1,238 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl" class="">
+<html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>نمونه‌کارها | تشریفات رویایی</title>
-  <meta name="description" content="تصاویر و اطلاعاتی از مراسم‌های برگزار شده">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <!-- 🔑 سئو -->
+<title>نمونه‌کارها | گالری مراسم‌های برگزار شده</title>
+<meta name="description" content="تصاویر و ویدیوهای واقعی از مراسم‌های لاکچری برگزار شده توسط تیم تشریفات رویایی. مشاهده نمونه‌کارها برای آشنایی با کیفیت خدمات ما.">
+<meta name="keywords" content="نمونه‌کار عروسی، گالری مراسم، عکس عروسی، تشریفات واقعی، پروژه‌های برگزار شده">
+<meta name="robots" content="index, follow">
+<meta http-equiv="Content-Language" content="fa" />
+
+  <link rel="stylesheet" href="Style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Vazir&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/darkmode.css">
+  <style>
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .item {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(248, 187, 208, 0.25);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .item:hover {
+      transform: translateY(-8px);
+    }
+
+    .item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+      transition: 0.3s ease all;
+    }
+
+    .item:hover img {
+      filter: brightness(65%);
+    }
+
+    .item p {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      padding: 14px;
+      margin: 0;
+      background: rgba(0, 0, 0, 0.55);
+      color: #fff;
+      font-size: 1rem;
+      text-align: center;
+      font-weight: 600;
+      line-height: 1.5;
+      transition: all 0.3s ease-in-out;
+      opacity: 0;
+    }
+
+    .item:hover p {
+      opacity: 1;
+    }
+
+    @media (max-width: 600px) {
+      .item img {
+        height: 180px;
+      }
+
+      .item p {
+        font-size: 0.9rem;
+        padding: 10px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <button id="themeToggle" title="تغییر تم">🌙</button>
-  <header>
-    <h1>تشریفات رویایی</h1>
-    <p>برگزارکننده لاکچری‌ترین مراسم‌های عروسی</p>
-  </header>
-  <main>
-<h2>نمونه‌کارها</h2><p>در این بخش می‌توانید تصاویر برخی از مراسم‌های ما را ببینید.</p>
-  </main>
-  <script src="js/darkmode.js"></script>
+
+<canvas id="bgCanvas"></canvas>
+
+<button id="audioToggle">🎵 پخش موسیقی</button>
+<audio id="wigenAudio" preload="auto" loop>
+  <source src="wigen_wedding.mp3" type="audio/mpeg" />
+</audio>
+
+<nav>
+  <a href="index.html">خانه</a>
+  <a href="services.html">خدمات ما</a>
+  <a href="portfolio.html">نمونه‌کارهای ما</a>
+  <a href="booking.html">رزرو مراسم</a>
+  <a href="cooperation.html">همکاری با شما</a>
+  <a href="waiter.html">استخدام مهماندار</a>
+  <a href="about.html">درباره ما</a>
+  <a href="contact.html">تماس با ما</a>
+</nav>
+
+<header>
+  <h1>🌟 نمونه‌کارهای تشریفات رویایی</h1>
+</header>
+
+<main>
+  <div class="gallery">
+    <div class="item">
+      <img src="image/1.jpg" alt="مراسم عروسی کلاسیک" />
+      <p>💍 مراسم کلاسیک در تالار مجلل با گل‌آرایی قرمز و طلایی</p>
+    </div>
+    <div class="item">
+      <img src="image/2.jpg" alt="جشن عقد فضای باز" />
+      <p>🌸 جشن عقد در فضای باز با نورپردازی عاشقانه و طراحی لاکچری</p>
+    </div>
+    <div class="item">
+      <img src="image/3.jpg" alt="میز شام عروسی" />
+      <p>🍽️ چیدمان ویژه میز شام با دسرهای خاص و طراحی صورتی-طلایی</p>
+    </div>
+    <div class="item">
+      <img src="image/4.jpg" alt="گل‌آرایی ویژه" />
+      <p>🌷 گل‌آرایی خاص سالن با گل‌های طبیعی و دیزاین هنری</p>
+    </div>
+    <div class="item">
+      <img src="image/5.jpg" alt="موسیقی زنده" />
+      <p>🎶 اجرای زنده با نوازندگان و DJ حرفه‌ای در مراسم‌های شاد</p>
+    </div>
+    <div class="item">
+      <img src="image/6.jpg" alt="ترنسفر VIP" />
+      <p>🚘 ترنسفر VIP برای عروس و داماد با خودروهای لاکچری</p>
+    </div>
+    <div class="item">
+      <img src="image/7.jpg" alt="سالن عقد خاص" />
+      <p>💒 طراحی خاص سالن عقد با نورپردازی و گل‌آرایی شیشه‌ای</p>
+    </div>
+  </div>
+
+  <div class="gallery">
+    <!-- ویدیو اول -->
+    <div class="item">
+      <video controls width="320" height="240" poster="image/poster1.jpg">
+        <source src="video/1.mp4" type="video/mp4" />
+        مرورگر شما از ویدیو پشتیبانی نمی‌کند.
+      </video>
+      <p>🎥 توضیح ویدیو اول درباره مراسم عروسی</p>
+    </div>
+
+    <!-- ویدیو دوم -->
+    <div class="item">
+      <video controls width="320" height="240" poster="image/poster2.jpg">
+        <source src="video/2.mp4" type="video/mp4" />
+        مرورگر شما از ویدیو پشتیبانی نمی‌کند.
+      </video>
+      <p>🎥 توضیح ویدیو دوم با نمای ویژه</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  &copy; 2025 تشریفات رویایی. تمامی حقوق محفوظ است.
+</footer>
+
+<!-- اسکریپت قلب و موزیک -->
+<script>
+  const audio = document.getElementById('wigenAudio');
+  const btn = document.getElementById('audioToggle');
+  let playing = false;
+
+  btn.addEventListener('click', () => {
+    if (playing) {
+      audio.pause();
+      btn.textContent = '🎵 پخش موسیقی';
+    } else {
+      audio.play().catch(() => alert("برای پخش، ابتدا روی صفحه کلیک کنید."));
+      btn.textContent = '⏸ توقف موسیقی';
+    }
+    playing = !playing;
+  });
+
+  document.addEventListener('click', function autoPlayOnce() {
+    audio.play().catch(() => {});
+    document.removeEventListener('click', autoPlayOnce);
+  });
+
+  const canvas = document.getElementById('bgCanvas');
+  const ctx = canvas.getContext('2d');
+  let W = canvas.width = window.innerWidth;
+  let H = canvas.height = window.innerHeight;
+
+  function drawHeart(ctx, x, y, size, color) {
+    ctx.save();
+    ctx.beginPath();
+    const topCurveHeight = size * 0.3;
+    ctx.moveTo(x, y + topCurveHeight);
+    ctx.bezierCurveTo(x, y, x - size / 2, y, x - size / 2, y + topCurveHeight);
+    ctx.bezierCurveTo(x - size / 2, y + (size + topCurveHeight) / 2, x, y + (size + topCurveHeight) / 1.2, x, y + size);
+    ctx.bezierCurveTo(x, y + (size + topCurveHeight) / 1.2, x + size / 2, y + (size + topCurveHeight) / 2, x + size / 2, y + topCurveHeight);
+    ctx.bezierCurveTo(x + size / 2, y, x, y, x, y + topCurveHeight);
+    ctx.closePath();
+    ctx.fillStyle = color;
+    ctx.fill();
+    ctx.restore();
+  }
+
+  const hearts = [];
+  for (let i = 0; i < 70; i++) {
+    hearts.push({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      size: Math.random() * 16 + 8,
+      speedX: Math.random() * 0.5 + 0.2,
+      speedY: Math.random() * 0.5 + 0.2,
+      color: `rgba(236,64,122,${Math.random() * 0.4 + 0.3})`
+    });
+  }
+
+  function update() {
+    ctx.clearRect(0, 0, W, H);
+    for (const h of hearts) {
+      h.x += h.speedX;
+      h.y += h.speedY;
+      if (h.x > W) h.x = -h.size;
+      if (h.y > H) h.y = -h.size;
+      drawHeart(ctx, h.x, h.y, h.size, h.color);
+    }
+    requestAnimationFrame(update);
+  }
+
+  window.addEventListener('resize', () => {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  });
+
+  update();
+</script>
+</script>
+<!-- چت آنلاین -->
+<script src="tawk.js"></script>
 </body>
 </html>

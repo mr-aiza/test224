@@ -1,44 +1,180 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl" class="">
+<html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>رزرو مراسم | تشریفات رویایی</title>
-  <meta name="description" content="فرم رزرو مراسم با امکانات کامل برای مشتریان گرامی">
-  <link href="https://fonts.googleapis.com/css2?family=Vazir&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/darkmode.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- 🔑 سئو -->
+<title>فرم رزرو مراسم | تشریفات رویایی</title>
+<meta name="description" content="فرم رزرو آنلاین مراسم عروسی با امکان انتخاب خدمات مورد نظر، تاریخ مراسم، نوع مراسم و دریافت پیش‌فاکتور و مشاوره رایگان.">
+<meta name="keywords" content="رزرو مراسم، فرم رزرو عروسی، ثبت مراسم، رزرو تشریفات، رزرو تالار">
+<meta name="robots" content="index, follow">
+<meta http-equiv="Content-Language" content="fa" />
+
+  <link rel="stylesheet" href="bookingstyle.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Vazir&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/moment-jalaali@0.9.2/build/moment-jalaali.min.js"></script>
+
 </head>
 <body>
-  <button id="themeToggle" title="تغییر تم">🌙</button>
-  <header>
-    <h1>تشریفات رویایی</h1>
-    <p>برگزارکننده لاکچری‌ترین مراسم‌های عروسی</p>
-  </header>
-  <main>
 
-<h2>فرم رزرو مراسم</h2>
-<form action="#" method="POST" style="display: flex; flex-direction: column; gap: 10px; max-width: 400px;">
-  <label>نام و نام خانوادگی:
+<canvas id="bgCanvas"></canvas>
+
+<!-- دکمه موزیک -->
+<audio id="bgMusic" src="wigen_wedding.mp3" loop></audio>
+<button id="audioToggle" title="پخش/توقف موسیقی"><i class="fa fa-music"></i></button>
+
+<!-- منو -->
+<nav>
+  <a href="index.html">خانه</a>
+  <a href="services.html">خدمات ما</a>
+  <a href="portfolio.html">نمونه‌کارهای ما</a>
+  <a href="booking.html">رزرو مراسم</a>
+  <a href="cooperation.html">همکاری با شما</a>
+  <a href="waiter.html">استخدام مهماندار</a>
+  <a href="about.html">درباره ما</a>
+  <a href="contact.html">تماس با ما</a>
+</nav>
+
+<!-- هدر -->
+<header>
+  <h1>رزرو مراسم رویایی شما</h1>
+  <p>لطفاً اطلاعات را با دقت وارد کنید.</p>
+</header>
+
+<main>
+  <form id="bookingForm" class="service-box" novalidate>
+    <label>نام و نام خانوادگی:</label>
     <input type="text" name="fullname" required>
-  </label>
-  <label>تاریخ مراسم:
-    <input type="date" name="date" required>
-  </label>
-  <label>تعداد مهمان‌ها:
-    <input type="number" name="guests" required>
-  </label>
-  <label>نوع خدمات:
-    <select name="service">
-      <option>کامل</option>
-      <option>مراسم ساده</option>
-      <option>فقط پذیرایی</option>
-    </select>
-  </label>
-  <button type="submit">ثبت رزرو</button>
-</form>
 
-  </main>
-  <script src="js/darkmode.js"></script>
+    <label>شماره تماس:</label>
+    <input type="tel" name="phone" pattern="09\d{9}" required>
+    <div class="info-text">مثلاً: 09123456789</div>
+
+    <label>ایمیل:</label>
+    <input type="email" name="email" required>
+
+    <label>تاریخ مراسم:</label>
+    <input type="date" id="eventDate" name="eventDate">
+<div id="shamsiDateDisplay" class="info-text"></div>
+
+
+    <label>نوع مراسم:</label>
+    <select name="eventType" required>
+      <option value="" disabled selected>انتخاب نوع</option>
+      <option value="عروسی">عروسی</option>
+      <option value="نامزدی">نامزدی</option>
+      <option value="تولد">تولد</option>
+      <option value="سایر">سایر</option>
+    </select>
+
+    <fieldset class="checkbox-group">
+      <legend>امکانات انتخابی:</legend>
+
+      <label><input type="checkbox" id="fingerFood" name="services" value="fingerFood"> فینگر فود</label>
+      <div id="submenu-fingerFood" class="submenu">
+        <label><input type="radio" name="fingerFoodLevel" value="اقتصادی"> اقتصادی</label>
+        <label><input type="radio" name="fingerFoodLevel" value="معمولی"> معمولی</label>
+        <label><input type="radio" name="fingerFoodLevel" value="ویژه"> ویژه</label>
+      </div>
+
+      <label><input type="checkbox" id="flowerDecoration" name="services" value="flowerDecoration"> گل‌آرایی</label>
+      <div id="submenu-flowerDecoration" class="submenu">
+        <label><input type="radio" name="flowerDecorationLevel" value="اقتصادی"> اقتصادی</label>
+        <label><input type="radio" name="flowerDecorationLevel" value="معمولی"> معمولی</label>
+        <label><input type="radio" name="flowerDecorationLevel" value="ویژه"> ویژه</label>
+      </div>
+
+      <label><input type="checkbox" id="juice" name="services" value="juice"> آب‌میوه</label>
+      <div id="submenu-juice" class="submenu">
+        <label><input type="radio" name="juiceLevel" value="اقتصادی"> اقتصادی</label>
+        <label><input type="radio" name="juiceLevel" value="معمولی"> معمولی</label>
+        <label><input type="radio" name="juiceLevel" value="ویژه"> ویژه</label>
+      </div>
+
+      <label><input type="checkbox" id="dinner" name="services" value="dinner"> شام</label>
+      <div id="submenu-dinner" class="submenu">
+        <label><input type="radio" name="dinnerType" value="دیس پرس"> دیس پرس</label>
+        <label><input type="radio" name="dinnerType" value="سلف سرویس"> سلف سرویس</label>
+      </div>
+    </fieldset>
+
+    <label>تعداد مهمان‌ها:</label>
+    <input type="number" id="guestCount" name="guestCount" min="1" required>
+    <div class="info-text" id="staffCountText">تعداد مهماندار: 0</div>
+
+    <label>توضیحات:</label>
+    <textarea name="notes" rows="3"></textarea>
+
+    <input type="submit" value="ثبت رزرو">
+
+    <div id="formSuccess" class="success-text"></div>
+    <div id="formError" class="error-text"></div>
+    <div id="trackingCode" class="info-text"></div>
+  </form>
+</main>
+
+<footer>&copy; ۲۰۲۵ تشریفات رویایی</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment-jalaali@0.9.2/build/moment-jalaali.js"></script>
+
+<script src="booking-script.js"></script>
+<script>
+  const canvas = document.getElementById('bgCanvas');
+  const ctx = canvas.getContext('2d');
+  let W = canvas.width = window.innerWidth;
+  let H = canvas.height = window.innerHeight;
+
+  function drawHeart(ctx, x, y, size, color) {
+    ctx.save();
+    ctx.beginPath();
+    const topCurveHeight = size * 0.3;
+    ctx.moveTo(x, y + topCurveHeight);
+    ctx.bezierCurveTo(x, y, x - size / 2, y, x - size / 2, y + topCurveHeight);
+    ctx.bezierCurveTo(x - size / 2, y + (size + topCurveHeight) / 2, x, y + (size + topCurveHeight) / 1.2, x, y + size);
+    ctx.bezierCurveTo(x, y + (size + topCurveHeight) / 1.2, x + size / 2, y + (size + topCurveHeight) / 2, x + size / 2, y + topCurveHeight);
+    ctx.bezierCurveTo(x + size / 2, y, x, y, x, y + topCurveHeight);
+    ctx.closePath();
+    ctx.fillStyle = color;
+    ctx.fill();
+    ctx.restore();
+  }
+
+  const hearts = [];
+  for (let i = 0; i < 70; i++) {
+    hearts.push({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      size: Math.random() * 16 + 8,
+      speedX: Math.random() * 0.5 + 0.2,
+      speedY: Math.random() * 0.5 + 0.2,
+      color: `rgba(236,64,122,${Math.random() * 0.4 + 0.3})`
+    });
+  }
+
+  function update() {
+    ctx.clearRect(0, 0, W, H);
+    for (const h of hearts) {
+      h.x += h.speedX;
+      h.y += h.speedY;
+      if (h.x > W) h.x = -h.size;
+      if (h.y > H) h.y = -h.size;
+      drawHeart(ctx, h.x, h.y, h.size, h.color);
+    }
+    requestAnimationFrame(update);
+  }
+
+  window.addEventListener('resize', () => {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  });
+
+  update();
+</script>
+</script>
+<!-- چت آنلاین -->
+<script src="tawk.js"></script>
 </body>
 </html>

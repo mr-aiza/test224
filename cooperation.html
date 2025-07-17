@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>دعوت به همکاری | تشریفات رویایی</title>
+  <meta name="description" content="اگر صاحب باغ، سالن یا خدمات مرتبط هستید، فرم همکاری ما را پر کنید و به جمع تیم تشریفات رویایی بپیوندید." />
+  <meta name="keywords" content="همکاری، تشریفات عروسی، باغ، سالن، پذیرایی، موزیک، گل‌آرایی، فیلم برداری" />
+  <meta name="robots" content="index, follow" />
+  <meta http-equiv="Content-Language" content="fa" />
+  <script src="cooperation-script.js" defer></script>
+  <link rel="stylesheet" href="Style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Vazir&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<canvas id="bgCanvas"></canvas>
+<audio id="bgMusic" src="wigen_wedding.mp3" loop></audio>
+<button id="audioToggle" title="پخش/توقف موسیقی"><i class="fa fa-music"></i></button>
+
+<nav>
+  <a href="index.html">خانه</a>
+  <a href="services.html">خدمات ما</a>
+  <a href="portfolio.html">نمونه‌کارهای ما</a>
+  <a href="booking.html">رزرو مراسم</a>
+  <a href="cooperation.html">همکاری با شما</a>
+  <a href="waiter.html">استخدام مهماندار</a>
+  <a href="about.html">درباره ما</a>
+  <a href="contact.html">تماس با ما</a>
+</nav>
+
+<main class="cooperation-page">
+  <section class="intro">
+    <h1>📣 دعوت به همکاری با تشریفات رویایی</h1>
+    <p>اگر صاحب باغ، سالن، یا خدمات مرتبط هستید، فرم زیر را پر کنید تا با شما تماس بگیریم.</p>
+  </section>
+
+  <section class="form-section">
+    <form id="cooperationForm">
+      <label>نام کامل:
+        <input type="text" name="fullname" required />
+      </label>
+
+      <label>شماره تماس:
+        <input type="tel" name="phone" required />
+      </label>
+
+      <label>نوع همکاری:
+        <select name="type" required>
+          <option value="">انتخاب کنید</option>
+          <option value="باغ">باغ</option>
+          <option value="سالن">سالن</option>
+          <option value="پذیرایی">پذیرایی</option>
+          <option value="موزیک">موزیک</option>
+          <option value="گل‌آرایی">گل‌آرایی</option>
+          <option value="آشپز">آشپز</option>
+          <option value="فیلم بردار">فیلم بردار</option>
+          <option value="سایر">سایر</option>
+        </select>
+      </label>
+
+      <label>منطقه / شهر:
+        <input type="text" name="location" required />
+      </label>
+
+      <label>توضیحات بیشتر:
+        <textarea name="description" rows="4" placeholder="مثلاً ظرفیت یا تجربه..."></textarea>
+      </label>
+
+      <label>
+        <input type="checkbox" required />
+        با شرایط همکاری موافقم.
+      </label>
+
+      <button type="submit">📩 ارسال فرم همکاری</button>
+      <p id="formMessage"></p>
+    </form>
+  </section>
+
+</main>
+
+<!-- اسکریپت انیمیشن قلب‌ها -->
+<script>
+  const canvas = document.getElementById('bgCanvas');
+  const ctx = canvas.getContext('2d');
+  let W = canvas.width = window.innerWidth;
+  let H = canvas.height = window.innerHeight;
+
+  function drawHeart(ctx, x, y, size, color) {
+    ctx.save();
+    ctx.beginPath();
+    const topCurveHeight = size * 0.3;
+    ctx.moveTo(x, y + topCurveHeight);
+    ctx.bezierCurveTo(x, y, x - size / 2, y, x - size / 2, y + topCurveHeight);
+    ctx.bezierCurveTo(x - size / 2, y + (size + topCurveHeight) / 2, x, y + (size + topCurveHeight) / 1.2, x, y + size);
+    ctx.bezierCurveTo(x, y + (size + topCurveHeight) / 1.2, x + size / 2, y + (size + topCurveHeight) / 2, x + size / 2, y + topCurveHeight);
+    ctx.bezierCurveTo(x + size / 2, y, x, y, x, y + topCurveHeight);
+    ctx.closePath();
+    ctx.fillStyle = color;
+    ctx.fill();
+    ctx.restore();
+  }
+
+  const hearts = [];
+  for (let i = 0; i < 70; i++) {
+    hearts.push({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      size: Math.random() * 16 + 8,
+      speedX: Math.random() * 0.5 + 0.2,
+      speedY: Math.random() * 0.5 + 0.2,
+      color: `rgba(236,64,122,${Math.random() * 0.4 + 0.3})`
+    });
+  }
+
+  function update() {
+    ctx.clearRect(0, 0, W, H);
+    for (const h of hearts) {
+      h.x += h.speedX;
+      h.y += h.speedY;
+      if (h.x > W) h.x = -h.size;
+      if (h.y > H) h.y = -h.size;
+      drawHeart(ctx, h.x, h.y, h.size, h.color);
+    }
+    requestAnimationFrame(update);
+  }
+
+  window.addEventListener('resize', () => {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  });
+
+  update();
+</script>
+
+<!-- چت آنلاین -->
+<script src="tawk.js"></script>
+</body>
+</html>

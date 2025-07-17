@@ -1,37 +1,185 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl" class="">
+<html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>تماس با ما | تشریفات رویایی</title>
-  <meta name="description" content="راه‌های ارتباط با تیم تشریفات رویایی">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <!-- 🔑 سئو -->
+<title>تماس با ما | ارتباط با تشریفات رویایی</title>
+<meta name="description" content="برای دریافت مشاوره رایگان، رزرو مراسم یا پرسش‌های بیشتر با ما تماس بگیرید. فرم تماس، شماره تماس، واتساپ و شبکه‌های اجتماعی در دسترس شما هستند.">
+<meta name="keywords" content="تماس با تشریفات، شماره تماس عروسی، ارتباط با برگزارکننده، فرم تماس، واتساپ تشریفات">
+<meta name="robots" content="index, follow">
+<meta http-equiv="Content-Language" content="fa" />
+
+  <link rel="stylesheet" href="Style.css" />
+  <link rel="stylesheet" href="bookingstyle.css" />
   <link href="https://fonts.googleapis.com/css2?family=Vazir&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/darkmode.css">
 </head>
 <body>
-  <button id="themeToggle" title="تغییر تم">🌙</button>
-  <header>
-    <h1>تشریفات رویایی</h1>
-    <p>برگزارکننده لاکچری‌ترین مراسم‌های عروسی</p>
-  </header>
-  <main>
 
-<h2>تماس با ما</h2>
-<form action="#" method="POST" style="display: flex; flex-direction: column; gap: 10px; max-width: 400px;">
-  <label>نام شما:
-    <input type="text" name="name" required>
-  </label>
-  <label>ایمیل:
-    <input type="email" name="email" required>
-  </label>
-  <label>پیام:
-    <textarea name="message" rows="4" required></textarea>
-  </label>
-  <button type="submit">ارسال پیام</button>
-</form>
+<canvas id="bgCanvas"></canvas>
 
-  </main>
-  <script src="js/darkmode.js"></script>
+<button id="audioToggle">🎵 پخش موسیقی</button>
+<audio id="wigenAudio" preload="auto" loop>
+  <source src="wigen_wedding.mp3" type="audio/mpeg" />
+</audio>
+
+<nav>
+  <a href="index.html">خانه</a>
+  <a href="services.html">خدمات ما</a>
+  <a href="portfolio.html">نمونه‌کارهای ما</a>
+  <a href="booking.html">رزرو مراسم</a>
+  <a href="cooperation.html">همکاری با شما</a>
+  <a href="waiter.html">استخدام مهماندار</a>
+  <a href="about.html">درباره ما</a>
+  <a href="contact.html">تماس با ما</a>
+</nav>
+
+<header>
+  <h1>📞 تماس با تشریفات رویایی</h1>
+  <div class="intro-text">
+    <p>همیشه آماده شنیدن صدای شما هستیم...</p>
+  </div>
+</header>
+
+<main>
+  <form id="contactForm" class="service-box">
+    <h2>📬 فرم ارتباط با ما</h2>
+
+    <label for="name">نام و نام خانوادگی:</label>
+    <input type="text" id="name" name="name" placeholder="مثلاً علی رضایی" required />
+
+    <label for="email">ایمیل:</label>
+    <input type="email" id="email" name="email" placeholder="مثلاً example@mail.com" required />
+
+    <label for="phone">شماره تماس:</label>
+    <input type="tel" id="phone" name="phone" placeholder="مثلاً 09123456789" pattern="09\d{9}" required />
+
+    <label for="message">پیام شما:</label>
+    <textarea id="message" name="message" placeholder="متن پیام خود را اینجا بنویسید..." required></textarea>
+
+    <input type="submit" value="ارسال پیام" />
+  </form>
+</main>
+
+<footer>
+  &copy; 2025 تشریفات رویایی. تمامی حقوق محفوظ است.
+</footer>
+
+<script>
+  const audio = document.getElementById('wigenAudio');
+  const btn = document.getElementById('audioToggle');
+  let playing = false;
+
+  btn.addEventListener('click', () => {
+    if (playing) {
+      audio.pause();
+      btn.textContent = '🎵 پخش موسیقی';
+    } else {
+      audio.play().catch(() => alert("برای پخش، ابتدا روی صفحه کلیک کنید."));
+      btn.textContent = '⏸ توقف موسیقی';
+    }
+    playing = !playing;
+  });
+
+  document.addEventListener('click', function autoPlayOnce() {
+    audio.play().catch(() => {});
+    document.removeEventListener('click', autoPlayOnce);
+  });
+
+  const canvas = document.getElementById('bgCanvas');
+  const ctx = canvas.getContext('2d');
+  let W = canvas.width = window.innerWidth;
+  let H = canvas.height = window.innerHeight;
+
+  function drawHeart(ctx, x, y, size, color) {
+    ctx.save();
+    ctx.beginPath();
+    const topCurveHeight = size * 0.3;
+    ctx.moveTo(x, y + topCurveHeight);
+    ctx.bezierCurveTo(x, y, x - size / 2, y, x - size / 2, y + topCurveHeight);
+    ctx.bezierCurveTo(x - size / 2, y + (size + topCurveHeight) / 2, x, y + (size + topCurveHeight) / 1.2, x, y + size);
+    ctx.bezierCurveTo(x, y + (size + topCurveHeight) / 1.2, x + size / 2, y + (size + topCurveHeight) / 2, x + size / 2, y + topCurveHeight);
+    ctx.bezierCurveTo(x + size / 2, y, x, y, x, y + topCurveHeight);
+    ctx.closePath();
+    ctx.fillStyle = color;
+    ctx.fill();
+    ctx.restore();
+  }
+
+  const hearts = [];
+  for (let i = 0; i < 70; i++) {
+    hearts.push({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      size: Math.random() * 16 + 8,
+      speedX: Math.random() * 0.5 + 0.2,
+      speedY: Math.random() * 0.5 + 0.2,
+      color: `rgba(236,64,122,${Math.random() * 0.4 + 0.3})`
+    });
+  }
+
+  function update() {
+    ctx.clearRect(0, 0, W, H);
+    for (const h of hearts) {
+      h.x += h.speedX;
+      h.y += h.speedY;
+      if (h.x > W) h.x = -h.size;
+      if (h.y > H) h.y = -h.size;
+      drawHeart(ctx, h.x, h.y, h.size, h.color);
+    }
+    requestAnimationFrame(update);
+  }
+
+  window.addEventListener('resize', () => {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  });
+
+  update();
+
+  document.getElementById('contactForm').addEventListener('submit', function(e){
+    e.preventDefault();
+
+    const phone = this.phone.value.trim();
+    const phoneRegex = /^09\d{9}$/;
+
+    if(!phoneRegex.test(phone)) {
+      alert('لطفاً شماره تماس معتبر وارد کنید (با 09 شروع شود و 11 رقم باشد).');
+      this.phone.focus();
+      return;
+    }
+
+    if(!this.checkValidity()){
+      alert('لطفاً همه فیلدها را به درستی پر کنید.');
+      return;
+    }
+
+    const data = {
+      name: this.name.value,
+      email: this.email.value,
+      phone: this.phone.value,
+      message: this.message.value
+    };
+
+    fetch('/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(result => {
+      if (result.message) {
+        alert(result.message);
+        this.reset();
+      } else {
+        alert(result.error || 'خطا در ارسال پیام.');
+      }
+    })
+    .catch(() => alert('خطا در ارسال پیام.'));
+  });
+</script>
+</script>
+<!-- چت آنلاین -->
+<script src="tawk.js"></script>
 </body>
 </html>
